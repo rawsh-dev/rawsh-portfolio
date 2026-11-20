@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#050505">
-  <meta name="description" content="Rawsh - خواردن و شیرینی">
+  <meta name="description" content="Rawsh - Food & Sweets">
   <title>خواردن و شیرینی | Rawsh</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,12 +17,13 @@
       --black: #050505;
       --gold: #e9ad24;
       --gold-light: #ffdc78;
-      --white: #fff;
       --cream: #FFF3E0;
       --brown: #6B3525;
       --orange: #D96B32;
+      --white: #ffffff;
       --muted: #795b4d;
-      --border: rgba(107,53,37,.22);
+      --border: rgba(107,53,37,.20);
+      --shadow: 0 8px 25px rgba(107,53,37,.08);
     }
 
     * {
@@ -33,11 +34,19 @@
 
     body {
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       background: var(--cream);
       color: var(--brown);
       font-family: "Noto Sans Arabic", sans-serif;
-      display: flex;
-      flex-direction: column;
+    }
+
+    body.lock-scroll {
+      overflow: hidden;
+    }
+
+    button {
+      font-family: inherit;
     }
 
     a {
@@ -49,9 +58,9 @@
 
     .header {
       height: 85px;
-      border-bottom: 1px solid rgba(220,164,42,.3);
-      background: rgba(5,5,5,.97);
       flex-shrink: 0;
+      background: var(--black);
+      border-bottom: 1px solid rgba(220,164,42,.3);
     }
 
     .header-inner {
@@ -69,7 +78,7 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
     }
 
     .brand img {
@@ -96,16 +105,101 @@
 
     .back-button:hover {
       background: var(--gold);
-      color: #050505;
+      color: var(--black);
     }
 
-    /* MAIN CONTENT */
+    /* SHIRTI 2 */
+
+    .menu-bar {
+      background: var(--brown);
+      color: var(--cream);
+      padding: 13px 4%;
+      box-shadow: 0 4px 15px rgba(107,53,37,.15);
+    }
+
+    .menu-inner {
+      width: min(1200px, 100%);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .category-nav {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+    }
+
+    .category-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-button {
+      flex-shrink: 0;
+      white-space: nowrap;
+      border: 1px solid rgba(255,243,224,.3);
+      background: transparent;
+      color: var(--cream);
+      padding: 10px 17px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .category-button:hover,
+    .category-button.active {
+      background: var(--cream);
+      color: var(--brown);
+      border-color: var(--cream);
+    }
+
+    .cart-button {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 10px 16px;
+      border: 1px solid var(--gold);
+      border-radius: 10px;
+      background: var(--gold);
+      color: #1b1208;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .cart-button:hover {
+      background: var(--gold-light);
+    }
+
+    .cart-count {
+      min-width: 23px;
+      height: 23px;
+      padding: 0 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--brown);
+      color: white;
+      font-size: 12px;
+    }
+
+    /* MAIN INTRODUCTION */
 
     .main {
-      flex: 1;
       width: min(1100px, 92%);
       margin: auto;
-      padding: 75px 0;
+      padding: 65px 0 45px;
       text-align: center;
     }
 
@@ -113,7 +207,7 @@
       width: 125px;
       height: 125px;
       object-fit: contain;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       filter: drop-shadow(0 5px 12px rgba(107,53,37,.15));
     }
 
@@ -147,73 +241,269 @@
       line-height: 2.2;
     }
 
-    .coming {
-      margin: 45px auto 0;
-      padding: 25px;
-      max-width: 520px;
+    /* PRODUCT SECTION */
+
+    .products-section {
+      width: min(1100px, 92%);
+      margin: 0 auto 65px;
+      text-align: center;
+      scroll-margin-top: 20px;
+    }
+
+    .section-title {
+      color: var(--brown);
+      font-size: 27px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 2;
+      margin-bottom: 25px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 16px;
-      background: linear-gradient(145deg, #fffaf2, #f5dfc5);
-      color: var(--brown);
-      line-height: 2;
-      box-shadow: 0 8px 25px rgba(107,53,37,.07);
-    }
-
-    /* LANGUAGE SELECTOR AT BOTTOM */
-
-    .language-area {
-      padding: 25px 15px 30px;
-      text-align: center;
-      border-top: 1px solid var(--border);
       background: #fffaf2;
+      box-shadow: var(--shadow);
+      text-align: start;
     }
 
-    .language-title {
-      color: var(--brown);
-      font-size: 13px;
-      margin-bottom: 15px;
+    .product-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: block;
+      object-fit: cover;
+      background: #f2dfc9;
     }
 
-    .language-buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .language-button {
-      min-width: 105px;
-      padding: 10px 17px;
-      background: #fff;
-      color: var(--brown);
-      border: 1px solid rgba(107,53,37,.3);
-      border-radius: 9px;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .25s;
-    }
-
-    .language-button:hover,
-    .language-button.active {
-      background: var(--orange);
-      border-color: var(--orange);
-      color: #fff;
-      box-shadow: 0 0 15px rgba(217,107,50,.2);
-    }
-
-    .footer {
-      text-align: center;
+    .product-info {
       padding: 15px;
-      color: #795b4d;
-      font-size: 12px;
-      background: #f5e6d3;
     }
 
-    .footer strong {
+    .product-name {
+      color: var(--brown);
+      font-size: 17px;
+      font-weight: 900;
+      margin-bottom: 7px;
+    }
+
+    .product-description {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .product-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .product-price {
       color: var(--orange);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .add-button {
+      padding: 9px 13px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--brown);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .add-button:hover {
+      background: var(--orange);
+    }
+
+    .empty-category {
+      padding: 35px 18px;
+      border: 1px dashed rgba(107,53,37,.35);
+      border-radius: 15px;
+      background: #fffaf2;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    /* CART MODAL */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(5px);
+    }
+
+    .overlay.hidden {
+      display: none;
+    }
+
+    .modal {
+      width: min(540px, 100%);
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 23px;
+      background: var(--cream);
+      border: 2px solid var(--orange);
+      border-radius: 19px;
+      box-shadow: 0 15px 55px rgba(0,0,0,.3);
+      animation: popup .25s ease;
+    }
+
+    @keyframes popup {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .modal-header h2 {
+      color: var(--brown);
+      font-size: 22px;
+    }
+
+    .close-button {
+      width: 35px;
+      height: 35px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--brown);
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 30px 10px;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item-info {
+      flex: 1;
+      min-width: 0;
+      text-align: start;
+    }
+
+    .cart-item-name {
+      color: var(--brown);
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-price {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .quantity-button {
+      width: 29px;
+      height: 29px;
+      border: 0;
+      border-radius: 7px;
+      background: var(--brown);
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .quantity-number {
+      min-width: 20px;
+      text-align: center;
+      font-weight: 900;
+    }
+
+    .remove-button {
+      border: 0;
+      background: transparent;
+      color: #b13a2b;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f3dfc9;
+      color: var(--brown);
+      font-weight: 900;
+    }
+
+    .order-button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 13px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--orange);
+      color: white;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .order-button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
     }
 
     /* LANGUAGE POPUP */
@@ -245,17 +535,6 @@
       animation: popup .35s ease;
     }
 
-    @keyframes popup {
-      from {
-        opacity: 0;
-        transform: translateY(20px) scale(.96);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
     .modal-logo {
       width: 75px;
       height: 75px;
@@ -263,14 +542,14 @@
       margin-bottom: 15px;
     }
 
-    .modal-title {
+    .language-modal h2 {
       color: var(--brown);
       font-size: 25px;
       font-weight: 900;
       margin-bottom: 8px;
     }
 
-    .modal-subtitle {
+    .language-modal p {
       color: var(--muted);
       font-size: 14px;
       margin-bottom: 25px;
@@ -288,9 +567,8 @@
       padding: 14px;
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: #fff;
+      background: white;
       color: var(--brown);
-      font-family: inherit;
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
@@ -300,8 +578,85 @@
     .modal-language-button:hover {
       background: var(--orange);
       border-color: var(--orange);
-      color: #fff;
-      transform: translateY(-2px);
+      color: white;
+    }
+
+    /* LANGUAGE FOOTER */
+
+    .language-area {
+      padding: 25px 15px 30px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      background: #fffaf2;
+    }
+
+    .language-title {
+      color: var(--brown);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .language-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .language-button {
+      min-width: 105px;
+      padding: 10px 17px;
+      background: white;
+      color: var(--brown);
+      border: 1px solid rgba(107,53,37,.3);
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .language-button:hover,
+    .language-button.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: white;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 15px;
+      color: #795b4d;
+      font-size: 12px;
+      background: #f5e6d3;
+    }
+
+    .footer strong {
+      color: var(--orange);
+    }
+
+    @media (max-width: 800px) {
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .menu-inner {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .category-nav {
+        width: 100%;
+        padding-bottom: 4px;
+      }
+
+      .cart-button {
+        width: 100%;
+      }
     }
 
     @media (max-width: 600px) {
@@ -319,7 +674,7 @@
       }
 
       .main {
-        padding: 55px 0;
+        padding: 50px 0 35px;
       }
 
       .main-logo {
@@ -331,17 +686,37 @@
         font-size: 14px;
       }
 
-      .language-button {
-        min-width: 90px;
-        padding: 9px 12px;
+      .section-title {
+        font-size: 23px;
       }
 
-      .language-modal {
-        padding: 30px 20px;
+      .product-grid {
+        gap: 10px;
       }
 
-      .modal-title {
-        font-size: 22px;
+      .product-info {
+        padding: 11px;
+      }
+
+      .product-name {
+        font-size: 15px;
+      }
+
+      .product-description {
+        font-size: 12px;
+      }
+
+      .product-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .add-button {
+        width: 100%;
+      }
+
+      .modal {
+        padding: 18px;
       }
     }
   </style>
@@ -360,33 +735,46 @@
         alt="Rawsh"
       >
 
-      <h2 class="modal-title" data-i18n="welcome">
-        بەخێربێیت
-      </h2>
+      <h2 data-i18n="welcome">بەخێربێیت</h2>
 
-      <p class="modal-subtitle" data-i18n="chooseLanguage">
+      <p data-i18n="chooseLanguage">
         تکایە زمانی دڵخوازت هەڵبژێرە
       </p>
 
       <div class="modal-language-buttons">
-
-        <button class="modal-language-button" type="button" data-lang="ku">
-          کوردی
-        </button>
-
-        <button class="modal-language-button" type="button" data-lang="ar">
-          العربية
-        </button>
-
-        <button class="modal-language-button" type="button" data-lang="en">
-          English
-        </button>
-
+        <button class="modal-language-button" type="button" data-lang="ku">کوردی</button>
+        <button class="modal-language-button" type="button" data-lang="ar">العربية</button>
+        <button class="modal-language-button" type="button" data-lang="en">English</button>
       </div>
+
     </div>
   </div>
 
-  <!-- HEADER -->
+  <!-- CART POPUP -->
+
+  <div class="overlay hidden" id="cartOverlay">
+    <div class="modal">
+
+      <div class="modal-header">
+        <h2 data-i18n="cartTitle">سەبەتەی خواردن</h2>
+        <button class="close-button" id="closeCart" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div id="cartItems"></div>
+
+      <div class="cart-total">
+        <span data-i18n="total">کۆی گشتی</span>
+        <span id="cartTotal">0 IQD</span>
+      </div>
+
+      <button class="order-button" id="orderButton" type="button" disabled data-i18n="order">
+        تەواوکردنی داواکاری
+      </button>
+
+    </div>
+  </div>
+
+  <!-- SHIRTI 1 -->
 
   <header class="header">
     <div class="header-inner">
@@ -406,7 +794,40 @@
     </div>
   </header>
 
-  <!-- MAIN -->
+  <!-- SHIRTI 2 -->
+
+  <nav class="menu-bar">
+    <div class="menu-inner">
+
+      <div class="category-nav">
+
+        <button class="category-button active" type="button" data-category="pizza" data-i18n="pizza">
+          پیتزا
+        </button>
+
+        <button class="category-button" type="button" data-category="burger" data-i18n="burger">
+          بەرگر
+        </button>
+
+        <button class="category-button" type="button" data-category="appetizers" data-i18n="appetizers">
+          موقەبیلات
+        </button>
+
+        <button class="category-button" type="button" data-category="drinks" data-i18n="drinks">
+          خواردنەوە
+        </button>
+
+      </div>
+
+      <button class="cart-button" id="openCart" type="button">
+        <span data-i18n="cart">سەبەتە</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- MAIN INTRODUCTION -->
 
   <main class="main">
 
@@ -422,15 +843,31 @@
 
     <p class="intro" data-i18n="intro">
       بەخێربێیت بۆ بەشی خواردن و شیرینی.
-      لەم بەشەدا دەتوانیت نموونەی وێبسایتێکی تایبەت بە
-      چێشتخانە، کافێ، شیرینی فرۆشی و خواردن ببینیت.
+      لەم بەشەدا دەتوانیت خواردن و خواردنەوەکان ببینیت
+      و بە ئاسانی زیاد بکەیتە ناو سەبەتەکەت.
     </p>
 
-    <div class="coming" data-i18n="coming">
-      بەشی خواردن و شیرینی بە زووترین کات ئامادە دەکرێت.
+  </main>
+
+  <!-- PRODUCTS -->
+
+  <section class="products-section" id="productsSection">
+
+    <h2 class="section-title" id="categoryTitle">
+      پیتزا
+    </h2>
+
+    <p class="section-description" data-i18n="categoryIntro">
+      بەرهەمەکانی ئەم بەشە لێرە پیشان دەدرێن.
+    </p>
+
+    <div class="product-grid" id="productGrid"></div>
+
+    <div class="empty-category" id="emptyCategory" data-i18n="emptyCategory">
+      هیچ بەرهەمێک لەم بەشەدا نییە. بەرهەمەکان دواتر زیاد دەکرێن.
     </div>
 
-  </main>
+  </section>
 
   <!-- LANGUAGE SELECTOR -->
 
@@ -441,19 +878,9 @@
     </p>
 
     <div class="language-buttons">
-
-      <button class="language-button active" type="button" data-lang="ku">
-        کوردی
-      </button>
-
-      <button class="language-button" type="button" data-lang="en">
-        English
-      </button>
-
-      <button class="language-button" type="button" data-lang="ar">
-        العربية
-      </button>
-
+      <button class="language-button active" type="button" data-lang="ku">کوردی</button>
+      <button class="language-button" type="button" data-lang="en">English</button>
+      <button class="language-button" type="button" data-lang="ar">العربية</button>
     </div>
 
   </section>
@@ -463,16 +890,72 @@
   </footer>
 
   <script>
+    /* =====================================
+       1. PRODUCT DATABASE
+       دواتر خواردنەکان لەم بەشەدا زیاد دەکەین
+    ===================================== */
+
+    const products = [];
+
+    /*
+      نموونەی شێوازی زیادکردنی خواردن بۆ دواتر:
+
+      products.push({
+        id: 1,
+        category: "pizza",
+        price: 10000,
+        image: "pizza.jpg",
+        names: {
+          ku: "پیتزای تایبەت",
+          en: "Special Pizza",
+          ar: "بيتزا خاصة"
+        },
+        descriptions: {
+          ku: "وەسفی خواردن",
+          en: "Food description",
+          ar: "وصف الطعام"
+        }
+      });
+
+      category:
+      pizza / burger / appetizers / drinks
+
+      price:
+      نرخ بە دیناری عێراقی
+    */
+
+    /* =====================================
+       2. TRANSLATIONS
+    ===================================== */
+
     const translations = {
       ku: {
         back: "گەڕانەوە",
         welcome: "بەخێربێیت",
         chooseLanguage: "تکایە زمانی دڵخوازت هەڵبژێرە",
         title: "خواردن و شیرینی",
-        intro: "بەخێربێیت بۆ بەشی خواردن و شیرینی. لەم بەشەدا دەتوانیت نموونەی وێبسایتێکی تایبەت بە چێشتخانە، کافێ، شیرینی فرۆشی و خواردن ببینیت.",
-        coming: "بەشی خواردن و شیرینی بە زووترین کات ئامادە دەکرێت.",
+        intro: "بەخێربێیت بۆ بەشی خواردن و شیرینی. لێرە دەتوانیت خواردن و خواردنەوەکان ببینیت و بە ئاسانی زیاد بکەیتە ناو سەبەتەکەت.",
+        pizza: "پیتزا",
+        burger: "بەرگر",
+        appetizers: "موقەبیلات",
+        drinks: "خواردنەوە",
+        cart: "سەبەتە",
+        cartTitle: "سەبەتەی خواردن",
+        emptyCart: "سەبەتەکەت بەتاڵە.",
+        total: "کۆی گشتی",
+        order: "تەواوکردنی داواکاری",
         language: "زمانی پەڕەکە هەڵبژێرە",
-        rights: "هەموو مافەکان پارێزراون."
+        rights: "هەموو مافەکان پارێزراون.",
+        categoryIntro: "بەرهەمەکانی ئەم بەشە لێرە پیشان دەدرێن.",
+        emptyCategory: "هیچ بەرهەمێک لەم بەشەدا نییە. بەرهەمەکان دواتر زیاد دەکرێن.",
+        add: "زیادکردن بۆ سەبەتە",
+        currency: "دینار",
+        categoryNames: {
+          pizza: "پیتزا",
+          burger: "بەرگر",
+          appetizers: "موقەبیلات",
+          drinks: "خواردنەوە"
+        }
       },
 
       en: {
@@ -480,10 +963,28 @@
         welcome: "Welcome",
         chooseLanguage: "Please choose your preferred language",
         title: "Food & Sweets",
-        intro: "Welcome to the Food & Sweets section. Here you can explore a website concept designed for restaurants, cafés, bakeries and food businesses.",
-        coming: "The Food & Sweets section will be available soon.",
+        intro: "Welcome to the Food & Sweets section. Explore food and drinks and easily add items to your cart.",
+        pizza: "Pizza",
+        burger: "Burgers",
+        appetizers: "Appetizers",
+        drinks: "Drinks",
+        cart: "Cart",
+        cartTitle: "Your Cart",
+        emptyCart: "Your cart is empty.",
+        total: "Total",
+        order: "Complete Order",
         language: "Choose your language",
-        rights: "All rights reserved."
+        rights: "All rights reserved.",
+        categoryIntro: "Products in this category will appear here.",
+        emptyCategory: "There are no products in this category yet. Products will be added later.",
+        add: "Add to Cart",
+        currency: "IQD",
+        categoryNames: {
+          pizza: "Pizza",
+          burger: "Burgers",
+          appetizers: "Appetizers",
+          drinks: "Drinks"
+        }
       },
 
       ar: {
@@ -491,20 +992,57 @@
         welcome: "أهلاً وسهلاً",
         chooseLanguage: "يرجى اختيار لغتك المفضلة",
         title: "الأطعمة والحلويات",
-        intro: "مرحباً بك في قسم الأطعمة والحلويات. يمكنك هنا استكشاف نموذج موقع إلكتروني مخصص للمطاعم والمقاهي ومحلات الحلويات والأطعمة.",
-        coming: "سيكون قسم الأطعمة والحلويات متاحاً قريباً.",
+        intro: "مرحباً بك في قسم الأطعمة والحلويات. تصفح الأطعمة والمشروبات وأضف المنتجات بسهولة إلى سلتك.",
+        pizza: "بيتزا",
+        burger: "برغر",
+        appetizers: "مقبلات",
+        drinks: "مشروبات",
+        cart: "السلة",
+        cartTitle: "سلة الطعام",
+        emptyCart: "سلتك فارغة.",
+        total: "المجموع الكلي",
+        order: "إكمال الطلب",
         language: "اختر لغة الصفحة",
-        rights: "جميع الحقوق محفوظة."
+        rights: "جميع الحقوق محفوظة.",
+        categoryIntro: "ستظهر منتجات هذا القسم هنا.",
+        emptyCategory: "لا توجد منتجات في هذا القسم حالياً. ستتم إضافة المنتجات لاحقاً.",
+        add: "أضف إلى السلة",
+        currency: "دينار",
+        categoryNames: {
+          pizza: "بيتزا",
+          burger: "برغر",
+          appetizers: "مقبلات",
+          drinks: "مشروبات"
+        }
       }
     };
 
-    const languageButtons = document.querySelectorAll(".language-button");
-    const overlay = document.getElementById("languageOverlay");
+    /* =====================================
+       3. PAGE STATE
+    ===================================== */
+
+    let currentLanguage = "ku";
+    let currentCategory = "pizza";
+    let cart = [];
+
+    const languageOverlay = document.getElementById("languageOverlay");
+    const cartOverlay = document.getElementById("cartOverlay");
+    const cartItems = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+    const cartTotal = document.getElementById("cartTotal");
+    const productGrid = document.getElementById("productGrid");
+    const emptyCategory = document.getElementById("emptyCategory");
+    const orderButton = document.getElementById("orderButton");
+
+    /* =====================================
+       4. LANGUAGE SYSTEM
+    ===================================== */
 
     function changeLanguage(lang) {
       const selected = translations[lang];
-
       if (!selected) return;
+
+      currentLanguage = lang;
 
       document.documentElement.lang = lang;
       document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
@@ -517,7 +1055,7 @@
         }
       });
 
-      languageButtons.forEach(button => {
+      document.querySelectorAll(".language-button").forEach(button => {
         button.classList.toggle(
           "active",
           button.dataset.lang === lang
@@ -526,17 +1064,308 @@
 
       document.title = selected.title + " | Rawsh";
 
-      overlay.classList.add("hidden");
-    }
+      renderProducts();
+      renderCart();
 
-    // لە هەر جارێک کردنەوەی پەڕەکە، پەنجەرەی زمان دەردەکەوێت
-    // تا بەکارهێنەر زمان هەڵبژێرێت.
+      languageOverlay.classList.add("hidden");
+      document.body.classList.remove("lock-scroll");
+    }
 
     document.querySelectorAll("[data-lang]").forEach(button => {
       button.addEventListener("click", () => {
         changeLanguage(button.dataset.lang);
       });
     });
+
+    /* =====================================
+       5. CATEGORY SYSTEM
+    ===================================== */
+
+    function selectCategory(category) {
+      currentCategory = category;
+
+      document.querySelectorAll(".category-button").forEach(button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.category === category
+        );
+      });
+
+      renderProducts();
+
+      document.getElementById("productsSection").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    document.querySelectorAll(".category-button").forEach(button => {
+      button.addEventListener("click", () => {
+        selectCategory(button.dataset.category);
+      });
+    });
+
+    /* =====================================
+       6. PRODUCT DISPLAY
+    ===================================== */
+
+    function renderProducts() {
+      const selected = translations[currentLanguage];
+
+      document.getElementById("categoryTitle").textContent =
+        selected.categoryNames[currentCategory];
+
+      productGrid.innerHTML = "";
+
+      const categoryProducts = products.filter(
+        product => product.category === currentCategory
+      );
+
+      if (categoryProducts.length === 0) {
+        emptyCategory.style.display = "block";
+        emptyCategory.textContent = selected.emptyCategory;
+        return;
+      }
+
+      emptyCategory.style.display = "none";
+
+      categoryProducts.forEach(product => {
+        const card = document.createElement("article");
+        card.className = "product-card";
+
+        const image = document.createElement("img");
+        image.className = "product-image";
+        image.src = product.image;
+        image.alt = product.names[currentLanguage] || "";
+        image.loading = "lazy";
+
+        const info = document.createElement("div");
+        info.className = "product-info";
+
+        const name = document.createElement("h3");
+        name.className = "product-name";
+        name.textContent = product.names[currentLanguage] || product.names.ku;
+
+        const description = document.createElement("p");
+        description.className = "product-description";
+        description.textContent =
+          product.descriptions[currentLanguage] ||
+          product.descriptions.ku;
+
+        const bottom = document.createElement("div");
+        bottom.className = "product-bottom";
+
+        const price = document.createElement("span");
+        price.className = "product-price";
+        price.textContent =
+          formatNumber(product.price) + " " + selected.currency;
+
+        const addButton = document.createElement("button");
+        addButton.className = "add-button";
+        addButton.type = "button";
+        addButton.textContent = selected.add;
+
+        addButton.addEventListener("click", () => {
+          addToCart(product.id);
+        });
+
+        bottom.append(price, addButton);
+        info.append(name, description, bottom);
+        card.append(image, info);
+
+        productGrid.appendChild(card);
+      });
+    }
+
+    /* =====================================
+       7. CART SYSTEM
+    ===================================== */
+
+    function addToCart(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+
+      const existing = cart.find(item => item.id === productId);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          id: product.id,
+          quantity: 1
+        });
+      }
+
+      renderCart();
+    }
+
+    function changeQuantity(productId, amount) {
+      const item = cart.find(product => product.id === productId);
+      if (!item) return;
+
+      item.quantity += amount;
+
+      if (item.quantity <= 0) {
+        cart = cart.filter(product => product.id !== productId);
+      }
+
+      renderCart();
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(product => product.id !== productId);
+      renderCart();
+    }
+
+    function formatNumber(number) {
+      return new Intl.NumberFormat(
+        currentLanguage === "en" ? "en-US" :
+        currentLanguage === "ar" ? "ar-IQ" : "ku"
+      ).format(number);
+    }
+
+    function renderCart() {
+      const selected = translations[currentLanguage];
+
+      let totalItems = 0;
+      let totalPrice = 0;
+
+      cartItems.innerHTML = "";
+
+      if (cart.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "cart-empty";
+        empty.textContent = selected.emptyCart;
+        cartItems.appendChild(empty);
+      }
+
+      cart.forEach(cartItem => {
+        const product = products.find(item => item.id === cartItem.id);
+        if (!product) return;
+
+        totalItems += cartItem.quantity;
+        totalPrice += product.price * cartItem.quantity;
+
+        const row = document.createElement("div");
+        row.className = "cart-item";
+
+        const info = document.createElement("div");
+        info.className = "cart-item-info";
+
+        const name = document.createElement("div");
+        name.className = "cart-item-name";
+        name.textContent =
+          product.names[currentLanguage] || product.names.ku;
+
+        const price = document.createElement("div");
+        price.className = "cart-item-price";
+        price.textContent =
+          formatNumber(product.price) + " " + selected.currency;
+
+        info.append(name, price);
+
+        const controls = document.createElement("div");
+        controls.className = "cart-controls";
+
+        const minus = document.createElement("button");
+        minus.className = "quantity-button";
+        minus.type = "button";
+        minus.textContent = "−";
+        minus.addEventListener("click", () => {
+          changeQuantity(product.id, -1);
+        });
+
+        const quantity = document.createElement("span");
+        quantity.className = "quantity-number";
+        quantity.textContent = cartItem.quantity;
+
+        const plus = document.createElement("button");
+        plus.className = "quantity-button";
+        plus.type = "button";
+        plus.textContent = "+";
+        plus.addEventListener("click", () => {
+          changeQuantity(product.id, 1);
+        });
+
+        const remove = document.createElement("button");
+        remove.className = "remove-button";
+        remove.type = "button";
+        remove.textContent = "×";
+        remove.setAttribute("aria-label", "Remove item");
+        remove.addEventListener("click", () => {
+          removeFromCart(product.id);
+        });
+
+        controls.append(minus, quantity, plus, remove);
+        row.append(info, controls);
+        cartItems.appendChild(row);
+      });
+
+      cartCount.textContent = totalItems;
+
+      cartTotal.textContent =
+        formatNumber(totalPrice) + " " + selected.currency;
+
+      orderButton.disabled = cart.length === 0;
+    }
+
+    /* =====================================
+       8. OPEN / CLOSE CART
+    ===================================== */
+
+    document.getElementById("openCart").addEventListener("click", () => {
+      renderCart();
+      cartOverlay.classList.remove("hidden");
+      document.body.classList.add("lock-scroll");
+    });
+
+    function closeCart() {
+      cartOverlay.classList.add("hidden");
+      document.body.classList.remove("lock-scroll");
+    }
+
+    document.getElementById("closeCart").addEventListener("click", closeCart);
+
+    cartOverlay.addEventListener("click", event => {
+      if (event.target === cartOverlay) {
+        closeCart();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeCart();
+      }
+    });
+
+    /* =====================================
+       9. ORDER BUTTON
+       پەیوەندی داواکاری دواتر زیاد دەکرێت
+    ===================================== */
+
+    orderButton.addEventListener("click", () => {
+      if (cart.length === 0) return;
+
+      const message = currentLanguage === "en"
+        ? "The order submission service will be connected in the next step."
+        : currentLanguage === "ar"
+        ? "سيتم ربط خدمة إرسال الطلبات في الخطوة القادمة."
+        : "خزمەتی ناردنی داواکاری لە هەنگاوی داهاتوودا زیاد دەکرێت.";
+
+      alert(message);
+    });
+
+    /* =====================================
+       10. INITIAL PAGE SETUP
+    ===================================== */
+
+    renderProducts();
+    renderCart();
+
+    // هەموو جارێک پەڕەکە دەکرێتەوە، پرسیاری زمان دەردەکەوێت.
+    languageOverlay.classList.remove("hidden");
+    document.body.classList.add("lock-scroll");
+
   </script>
 
 </body>
