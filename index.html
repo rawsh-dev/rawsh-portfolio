@@ -19,7 +19,7 @@
       --gold-light: #ffdc78;
       --white: #ffffff;
       --muted: #c8c8c8;
-      --border: rgba(220, 164, 42, .35);
+      --border: rgba(220,164,42,.35);
     }
 
     * {
@@ -51,12 +51,12 @@
       height: 86px;
       position: relative;
       z-index: 10;
-      background: rgba(5, 5, 5, .96);
-      border-bottom: 1px solid rgba(220, 164, 42, .22);
+      background: rgba(5,5,5,.96);
+      border-bottom: 1px solid rgba(220,164,42,.22);
     }
 
     .header-inner {
-      width: min(1440px, 94%);
+      width: min(1440px,94%);
       height: 100%;
       margin: auto;
       display: flex;
@@ -66,13 +66,11 @@
       position: relative;
     }
 
-    /* RAWSh WORDMARK IN CENTER OF HEADER */
-
     .brand-wordmark {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%,-50%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -82,9 +80,9 @@
     .brand-wordmark img {
       width: 165px;
       height: auto;
-      object-fit: contain;
       display: block;
-      filter: drop-shadow(0 0 8px rgba(230, 165, 35, .18));
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(230,165,35,.18));
     }
 
     .navigation {
@@ -95,12 +93,12 @@
     }
 
     .navigation a {
-      color: #eeeeee;
+      color: #eee;
       font-size: 15px;
       font-weight: 700;
-      transition: .3s;
-      position: relative;
       padding: 12px 0;
+      position: relative;
+      transition: .3s;
     }
 
     .navigation a:hover,
@@ -128,7 +126,7 @@
       cursor: pointer;
     }
 
-    /* HERO BACKGROUND */
+    /* HERO */
 
     .hero {
       min-height: 690px;
@@ -155,19 +153,18 @@
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(
-          0deg,
-          #050505 0%,
-          transparent 18%,
-          transparent 82%,
-          rgba(0,0,0,.25) 100%
-        );
+      background: linear-gradient(
+        0deg,
+        #050505 0%,
+        transparent 18%,
+        transparent 82%,
+        rgba(0,0,0,.25) 100%
+      );
       pointer-events: none;
     }
 
     .hero-inner {
-      width: min(1440px, 94%);
+      width: min(1440px,94%);
       margin: auto;
       position: relative;
       z-index: 1;
@@ -182,35 +179,27 @@
       padding: 35px 15px;
     }
 
-    /* LARGE R LOGO IN HERO */
-
     .main-logo {
-      width: min(440px, 90%);
+      width: min(440px,90%);
       height: auto;
       object-fit: contain;
       display: block;
       margin: 0 auto 8px;
-
       mix-blend-mode: screen;
       opacity: .91;
-
       filter:
-        drop-shadow(0 5px 15px rgba(225, 158, 28, .20))
+        drop-shadow(0 5px 15px rgba(225,158,28,.20))
         saturate(.95);
-
       transition: .4s ease;
     }
 
-    /* MAIN SLOGAN */
-
     .slogan {
-      color: #ffffff;
-      font-size: clamp(25px, 2.6vw, 34px);
+      color: #fff;
+      font-size: clamp(25px,2.6vw,34px);
       line-height: 1.9;
       font-weight: 900;
       letter-spacing: -.5px;
       margin: 8px auto 12px;
-
       text-shadow:
         0 2px 12px rgba(0,0,0,.9),
         0 0 20px rgba(255,255,255,.08);
@@ -228,12 +217,12 @@
         var(--gold),
         transparent
       );
-      box-shadow: 0 0 13px rgba(255, 190, 55, .75);
+      box-shadow: 0 0 13px rgba(255,190,55,.75);
     }
 
     .description {
       color: var(--gold-light);
-      font-size: clamp(17px, 1.7vw, 22px);
+      font-size: clamp(17px,1.7vw,22px);
       font-weight: 800;
       line-height: 1.9;
       margin: 12px auto;
@@ -248,10 +237,10 @@
       text-shadow: 0 2px 10px #000;
     }
 
-    /* CATEGORY SECTION */
+    /* CATEGORIES */
 
     .categories {
-      width: min(1440px, 94%);
+      width: min(1440px,94%);
       margin: -5px auto 0;
       padding: 20px 0 45px;
       position: relative;
@@ -260,17 +249,13 @@
 
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(6,1fr);
       gap: 13px;
     }
 
     .category-card {
       min-height: 105px;
-      background: linear-gradient(
-        145deg,
-        rgba(20,20,20,.97),
-        rgba(5,5,5,.98)
-      );
+      background: linear-gradient(145deg,rgba(20,20,20,.97),rgba(5,5,5,.98));
       border: 1px solid var(--border);
       border-radius: 17px;
       display: flex;
@@ -292,19 +277,14 @@
       left: 20%;
       width: 60%;
       height: 2px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        var(--gold),
-        transparent
-      );
+      background: linear-gradient(90deg,transparent,var(--gold),transparent);
       box-shadow: 0 0 10px var(--gold);
     }
 
     .category-card:hover {
       transform: translateY(-5px);
       border-color: var(--gold);
-      box-shadow: 0 8px 25px rgba(220, 164, 42, .13);
+      box-shadow: 0 8px 25px rgba(220,164,42,.13);
     }
 
     .category-icon {
@@ -312,7 +292,7 @@
       font-size: 35px;
       line-height: 1;
       font-weight: 700;
-      text-shadow: 0 0 13px rgba(255, 190, 55, .3);
+      text-shadow: 0 0 13px rgba(255,190,55,.3);
     }
 
     .category-card h3 {
@@ -326,13 +306,12 @@
     .about {
       padding: 65px 20px 80px;
       text-align: center;
-      background:
-        radial-gradient(
-          ellipse at center,
-          rgba(160, 105, 20, .09),
-          transparent 65%
-        );
-      border-top: 1px solid rgba(220, 164, 42, .12);
+      background: radial-gradient(
+        ellipse at center,
+        rgba(160,105,20,.09),
+        transparent 65%
+      );
+      border-top: 1px solid rgba(220,164,42,.12);
     }
 
     .about h2 {
@@ -356,7 +335,7 @@
       padding: 22px 15px;
       color: #999;
       font-size: 13px;
-      border-top: 1px solid rgba(220, 164, 42, .18);
+      border-top: 1px solid rgba(220,164,42,.18);
       background: #030303;
     }
 
@@ -366,7 +345,7 @@
 
     /* TABLET */
 
-    @media (max-width: 1000px) {
+    @media (max-width:1000px) {
       .navigation {
         gap: 35px;
       }
@@ -380,13 +359,13 @@
       }
 
       .category-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3,1fr);
       }
     }
 
     /* MOBILE */
 
-    @media (max-width: 650px) {
+    @media (max-width:650px) {
       .header {
         height: 70px;
       }
@@ -472,17 +451,16 @@
       }
 
       .main-logo {
-        width: min(350px, 92%);
+        width: min(350px,92%);
         margin-bottom: 5px;
         opacity: .89;
-
         filter:
-          drop-shadow(0 4px 12px rgba(225, 158, 28, .18))
+          drop-shadow(0 4px 12px rgba(225,158,28,.18))
           saturate(.92);
       }
 
       .slogan {
-        font-size: clamp(21px, 6vw, 25px);
+        font-size: clamp(21px,6vw,25px);
         line-height: 2;
         font-weight: 900;
         margin: 5px auto 10px;
@@ -511,7 +489,7 @@
       }
 
       .category-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
         gap: 10px;
       }
 
@@ -542,7 +520,7 @@
       }
     }
 
-    @media (min-width: 651px) {
+    @media (min-width:651px) {
       .hero-visual {
         display: none;
       }
@@ -552,11 +530,9 @@
 
 <body>
 
-  <!-- HEADER -->
   <header class="header">
     <div class="header-inner">
 
-      <!-- Rawsh wordmark centered in header -->
       <a href="#home" class="brand-wordmark" aria-label="Rawsh">
         <img
           src="file_000000008c388246a1a14bb325b59eb6(1).png"
@@ -574,13 +550,12 @@
       <nav class="navigation" id="navigation">
         <a href="#home" class="active">پەڕەی سەرەکی</a>
         <a href="#about">دەربارە</a>
-        <a href="#contact">پەیوەندی</a>
+        <a href="contact.html">پەیوەندی</a>
       </nav>
 
     </div>
   </header>
 
-  <!-- MAIN HERO -->
   <main id="home">
 
     <section class="hero">
@@ -588,10 +563,8 @@
       <div class="hero-visual"></div>
 
       <div class="hero-inner">
-
         <div class="hero-content">
 
-          <!-- Large R logo in the center of the hero -->
           <img
             class="main-logo"
             src="file_0000000090a081f4805def2e8128fe81.png"
@@ -613,14 +586,11 @@
           </p>
 
         </div>
-
       </div>
 
     </section>
 
-    <!-- WEBSITE CATEGORIES -->
     <section class="categories" aria-label="بواری وێبسایتەکان">
-
       <div class="category-grid">
 
         <a class="category-card" href="#food">
@@ -654,10 +624,8 @@
         </a>
 
       </div>
-
     </section>
 
-    <!-- ABOUT -->
     <section class="about" id="about">
       <h2>دەربارەی Rawsh</h2>
       <p>
@@ -669,11 +637,8 @@
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer" id="contact">
-    <p>
-      <strong>Rawsh</strong> — هەموو مافەکان پارێزراون.
-    </p>
+  <footer class="footer">
+    <p><strong>Rawsh</strong> — هەموو مافەکان پارێزراون.</p>
   </footer>
 
   <script>
@@ -692,12 +657,6 @@
         navigation.classList.remove("open");
         menuToggle.textContent = "☰";
         menuToggle.setAttribute("aria-expanded", "false");
-
-        navigation.querySelectorAll("a").forEach(function (item) {
-          item.classList.remove("active");
-        });
-
-        link.classList.add("active");
       });
     });
   </script>
