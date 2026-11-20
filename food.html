@@ -25,7 +25,11 @@
   --border:rgba(107,53,37,.2);
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 body {
   min-height:100vh;
@@ -437,20 +441,6 @@ h1 {
   font-weight:900;
 }
 
-.order-button {
-  width:100%;
-  margin-top:15px;
-  padding:13px;
-  border:0;
-  border-radius:10px;
-  background:var(--orange);
-  color:white;
-  font-size:15px;
-  font-weight:900;
-}
-
-.order-button:disabled { opacity:.5; }
-
 /* LANGUAGE POPUP */
 
 .language-overlay {
@@ -651,11 +641,6 @@ h1 {
       <span data-i18n="total">کۆی گشتی</span>
       <span id="cartTotal">0 دینار</span>
     </div>
-
-    <button class="order-button" id="orderButton"
-      type="button" disabled data-i18n="order">
-      تەواوکردنی داواکاری
-    </button>
   </div>
 </div>
 
@@ -815,6 +800,57 @@ const products = [
       en:"Pizza dough, tomato sauce, mozzarella cheese, pepperoni slices and fresh basil.",
       ar:"عجينة البيتزا، صلصة الطماطم، جبنة موزاريلا، شرائح البيبروني والريحان الطازج."
     }
+  },
+
+  {
+    id:5,
+    category:"appetizers",
+    price:5000,
+    image:"26a87b3e72d9fb57d81fa18c390b3e56.png",
+    names:{
+      ku:"سینی موقەبیلاتی تێکەڵ",
+      en:"Mixed Mezze Platter",
+      ar:"طبق مقبلات مشكلة"
+    },
+    descriptions:{
+      ku:"حومس، تەبوولە، سالاتی ماست و هەنار، سالاتی مۆزە و سەوزە، سپاگێتی و سالاتی سەوزەی تێکەڵ.",
+      en:"Hummus, tabbouleh, yogurt and pomegranate salad, vegetable salad, spaghetti and mixed vegetable salad.",
+      ar:"حمص، تبولة، سلطة اللبن والرمان، سلطة الخضار، سباغيتي وسلطة خضار مشكلة."
+    }
+  },
+
+  {
+    id:6,
+    category:"drinks",
+    price:1000,
+    image:"0c7f715767d70087c1659adad03c2e1e.png",
+    names:{
+      ku:"فانتا پرتەقاڵ",
+      en:"Fanta Orange",
+      ar:"فانتا برتقال"
+    },
+    descriptions:{
+      ku:"خواردنەوەی گازی بە تامی پرتەقاڵ، بە تامی خۆش و ساردکەرەوە.",
+      en:"A refreshing carbonated orange-flavoured drink.",
+      ar:"مشروب غازي منعش بنكهة البرتقال."
+    }
+  },
+
+  {
+    id:7,
+    category:"drinks",
+    price:1000,
+    image:"ac597744c08b0bd59ab8fb1331413d3a.png",
+    names:{
+      ku:"کۆکاکۆلا",
+      en:"Coca-Cola",
+      ar:"كوكاكولا"
+    },
+    descriptions:{
+      ku:"خواردنەوەی گازی کۆکاکۆلا.",
+      en:"Coca-Cola carbonated soft drink.",
+      ar:"مشروب كوكاكولا الغازي."
+    }
   }
 ];
 
@@ -835,7 +871,6 @@ const translations = {
     cartTitle:"سەبەتەی خواردن",
     emptyCart:"سەبەتەکەت بەتاڵە.",
     total:"کۆی گشتی",
-    order:"تەواوکردنی داواکاری",
     language:"زمانی پەڕەکە هەڵبژێرە",
     rights:"هەموو مافەکان پارێزراون.",
     categoryIntro:"بەرهەمەکانی ئەم بەشە لێرە پیشان دەدرێن.",
@@ -864,7 +899,6 @@ const translations = {
     cartTitle:"Your Cart",
     emptyCart:"Your cart is empty.",
     total:"Total",
-    order:"Complete Order",
     language:"Choose your language",
     rights:"All rights reserved.",
     categoryIntro:"Products in this category appear here.",
@@ -893,7 +927,6 @@ const translations = {
     cartTitle:"سلة الطعام",
     emptyCart:"سلتك فارغة.",
     total:"المجموع الكلي",
-    order:"إكمال الطلب",
     language:"اختر لغة الصفحة",
     rights:"جميع الحقوق محفوظة.",
     categoryIntro:"ستظهر منتجات هذا القسم هنا.",
@@ -922,7 +955,6 @@ const cartCount=document.getElementById("cartCount");
 const cartTotal=document.getElementById("cartTotal");
 const productGrid=document.getElementById("productGrid");
 const emptyCategory=document.getElementById("emptyCategory");
-const orderButton=document.getElementById("orderButton");
 
 /* LANGUAGE */
 
@@ -1057,7 +1089,7 @@ function renderProducts(){
   });
 }
 
-/* CART SYSTEM */
+/* CART SYSTEM - PRICE CALCULATION ONLY */
 
 function addToCart(productId){
   const existing=cart.find(item=>item.id===productId);
@@ -1159,7 +1191,6 @@ function renderCart(){
 
   cartCount.textContent=totalItems;
   cartTotal.textContent=formatNumber(totalPrice)+" "+selected.currency;
-  orderButton.disabled=cart.length===0;
 }
 
 /* OPEN / CLOSE CART */
@@ -1187,20 +1218,6 @@ document.addEventListener("keydown",event=>{
     languageOverlay.classList.add("hidden");
     document.body.classList.remove("lock-scroll");
   }
-});
-
-/* ORDER BUTTON */
-
-orderButton.addEventListener("click",()=>{
-  if(cart.length===0) return;
-
-  const message=currentLanguage==="en"
-    ?"The order submission service will be connected in the next step."
-    :currentLanguage==="ar"
-    ?"سيتم ربط خدمة إرسال الطلبات في الخطوة القادمة."
-    :"خزمەتی ناردنی داواکاری لە هەنگاوی داهاتوودا زیاد دەکرێت.";
-
-  alert(message);
 });
 
 /* INITIAL SETUP */
