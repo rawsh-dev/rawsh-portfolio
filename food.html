@@ -18,8 +18,11 @@
       --gold: #e9ad24;
       --gold-light: #ffdc78;
       --white: #fff;
-      --muted: #c8c8c8;
-      --border: rgba(220,164,42,.3);
+      --cream: #FFF3E0;
+      --brown: #6B3525;
+      --orange: #D96B32;
+      --muted: #795b4d;
+      --border: rgba(107,53,37,.22);
     }
 
     * {
@@ -30,10 +33,8 @@
 
     body {
       min-height: 100vh;
-      background:
-        radial-gradient(ellipse at top, rgba(180,115,15,.13), transparent 55%),
-        var(--black);
-      color: var(--white);
+      background: var(--cream);
+      color: var(--brown);
       font-family: "Noto Sans Arabic", sans-serif;
       display: flex;
       flex-direction: column;
@@ -44,12 +45,13 @@
       text-decoration: none;
     }
 
-    /* HEADER */
+    /* HEADER - SHIRTI 1 */
 
     .header {
       height: 85px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(5,5,5,.95);
+      border-bottom: 1px solid rgba(220,164,42,.3);
+      background: rgba(5,5,5,.97);
+      flex-shrink: 0;
     }
 
     .header-inner {
@@ -97,7 +99,7 @@
       color: #050505;
     }
 
-    /* MAIN */
+    /* MAIN CONTENT */
 
     .main {
       flex: 1;
@@ -112,26 +114,26 @@
       height: 125px;
       object-fit: contain;
       margin-bottom: 25px;
-      filter: drop-shadow(0 0 15px rgba(220,164,42,.22));
+      filter: drop-shadow(0 5px 12px rgba(107,53,37,.15));
     }
 
     .gold-line {
       width: 180px;
-      height: 2px;
+      height: 3px;
       margin: 20px auto;
+      border-radius: 5px;
       background: linear-gradient(
         90deg,
         transparent,
-        var(--gold),
-        #fff0b0,
-        var(--gold),
+        var(--orange),
+        var(--brown),
+        var(--orange),
         transparent
       );
-      box-shadow: 0 0 12px rgba(255,190,55,.5);
     }
 
     h1 {
-      color: var(--gold-light);
+      color: var(--brown);
       font-size: clamp(27px, 4vw, 40px);
       font-weight: 900;
       margin-bottom: 15px;
@@ -151,22 +153,23 @@
       max-width: 520px;
       border: 1px solid var(--border);
       border-radius: 16px;
-      background: linear-gradient(145deg, #17120a, #080808);
-      color: var(--gold-light);
+      background: linear-gradient(145deg, #fffaf2, #f5dfc5);
+      color: var(--brown);
       line-height: 2;
+      box-shadow: 0 8px 25px rgba(107,53,37,.07);
     }
 
-    /* LANGUAGE SELECTOR */
+    /* LANGUAGE SELECTOR AT BOTTOM */
 
     .language-area {
       padding: 25px 15px 30px;
       text-align: center;
       border-top: 1px solid var(--border);
-      background: #030303;
+      background: #fffaf2;
     }
 
     .language-title {
-      color: #aaa;
+      color: var(--brown);
       font-size: 13px;
       margin-bottom: 15px;
     }
@@ -182,9 +185,9 @@
     .language-button {
       min-width: 105px;
       padding: 10px 17px;
-      background: #101010;
-      color: #ddd;
-      border: 1px solid rgba(220,164,42,.35);
+      background: #fff;
+      color: var(--brown);
+      border: 1px solid rgba(107,53,37,.3);
       border-radius: 9px;
       font-family: inherit;
       font-size: 14px;
@@ -195,22 +198,110 @@
 
     .language-button:hover,
     .language-button.active {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #050505;
-      box-shadow: 0 0 15px rgba(220,164,42,.2);
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(217,107,50,.2);
     }
 
     .footer {
       text-align: center;
       padding: 15px;
-      color: #777;
+      color: #795b4d;
       font-size: 12px;
-      background: #030303;
+      background: #f5e6d3;
     }
 
     .footer strong {
-      color: var(--gold);
+      color: var(--orange);
+    }
+
+    /* LANGUAGE POPUP */
+
+    .language-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(7px);
+    }
+
+    .language-overlay.hidden {
+      display: none;
+    }
+
+    .language-modal {
+      width: min(420px, 100%);
+      padding: 35px 25px;
+      border-radius: 22px;
+      background: var(--cream);
+      border: 2px solid var(--orange);
+      text-align: center;
+      box-shadow: 0 15px 60px rgba(0,0,0,.4);
+      animation: popup .35s ease;
+    }
+
+    @keyframes popup {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-logo {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .modal-title {
+      color: var(--brown);
+      font-size: 25px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .modal-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 25px;
+      line-height: 1.8;
+    }
+
+    .modal-language-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-language-button {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--brown);
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .modal-language-button:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+      transform: translateY(-2px);
     }
 
     @media (max-width: 600px) {
@@ -244,11 +335,58 @@
         min-width: 90px;
         padding: 9px 12px;
       }
+
+      .language-modal {
+        padding: 30px 20px;
+      }
+
+      .modal-title {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- LANGUAGE POPUP -->
+
+  <div class="language-overlay" id="languageOverlay">
+    <div class="language-modal">
+
+      <img
+        class="modal-logo"
+        src="file_0000000090a081f4805def2e8128fe81.png"
+        alt="Rawsh"
+      >
+
+      <h2 class="modal-title" data-i18n="welcome">
+        بەخێربێیت
+      </h2>
+
+      <p class="modal-subtitle" data-i18n="chooseLanguage">
+        تکایە زمانی دڵخوازت هەڵبژێرە
+      </p>
+
+      <div class="modal-language-buttons">
+
+        <button class="modal-language-button" type="button" data-lang="ku">
+          کوردی
+        </button>
+
+        <button class="modal-language-button" type="button" data-lang="ar">
+          العربية
+        </button>
+
+        <button class="modal-language-button" type="button" data-lang="en">
+          English
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
 
   <header class="header">
     <div class="header-inner">
@@ -267,6 +405,8 @@
 
     </div>
   </header>
+
+  <!-- MAIN -->
 
   <main class="main">
 
@@ -291,6 +431,8 @@
     </div>
 
   </main>
+
+  <!-- LANGUAGE SELECTOR -->
 
   <section class="language-area">
 
@@ -324,6 +466,8 @@
     const translations = {
       ku: {
         back: "گەڕانەوە",
+        welcome: "بەخێربێیت",
+        chooseLanguage: "تکایە زمانی دڵخوازت هەڵبژێرە",
         title: "خواردن و شیرینی",
         intro: "بەخێربێیت بۆ بەشی خواردن و شیرینی. لەم بەشەدا دەتوانیت نموونەی وێبسایتێکی تایبەت بە چێشتخانە، کافێ، شیرینی فرۆشی و خواردن ببینیت.",
         coming: "بەشی خواردن و شیرینی بە زووترین کات ئامادە دەکرێت.",
@@ -333,6 +477,8 @@
 
       en: {
         back: "Go Back",
+        welcome: "Welcome",
+        chooseLanguage: "Please choose your preferred language",
         title: "Food & Sweets",
         intro: "Welcome to the Food & Sweets section. Here you can explore a website concept designed for restaurants, cafés, bakeries and food businesses.",
         coming: "The Food & Sweets section will be available soon.",
@@ -342,6 +488,8 @@
 
       ar: {
         back: "العودة",
+        welcome: "أهلاً وسهلاً",
+        chooseLanguage: "يرجى اختيار لغتك المفضلة",
         title: "الأطعمة والحلويات",
         intro: "مرحباً بك في قسم الأطعمة والحلويات. يمكنك هنا استكشاف نموذج موقع إلكتروني مخصص للمطاعم والمقاهي ومحلات الحلويات والأطعمة.",
         coming: "سيكون قسم الأطعمة والحلويات متاحاً قريباً.",
@@ -351,6 +499,7 @@
     };
 
     const languageButtons = document.querySelectorAll(".language-button");
+    const overlay = document.getElementById("languageOverlay");
 
     function changeLanguage(lang) {
       const selected = translations[lang];
@@ -362,7 +511,10 @@
 
       document.querySelectorAll("[data-i18n]").forEach(element => {
         const key = element.dataset.i18n;
-        element.textContent = selected[key];
+
+        if (selected[key]) {
+          element.textContent = selected[key];
+        }
       });
 
       languageButtons.forEach(button => {
@@ -373,9 +525,14 @@
       });
 
       document.title = selected.title + " | Rawsh";
+
+      overlay.classList.add("hidden");
     }
 
-    languageButtons.forEach(button => {
+    // لە هەر جارێک کردنەوەی پەڕەکە، پەنجەرەی زمان دەردەکەوێت
+    // تا بەکارهێنەر زمان هەڵبژێرێت.
+
+    document.querySelectorAll("[data-lang]").forEach(button => {
       button.addEventListener("click", () => {
         changeLanguage(button.dataset.lang);
       });
