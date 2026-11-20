@@ -23,14 +23,9 @@
   --white:#fff;
   --muted:#795b4d;
   --border:rgba(107,53,37,.2);
-  --shadow:0 8px 25px rgba(107,53,37,.08);
 }
 
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   min-height:100vh;
@@ -42,11 +37,10 @@ body {
 }
 
 body.lock-scroll { overflow:hidden; }
-
 button { font-family:inherit; cursor:pointer; }
 a { color:inherit; text-decoration:none; }
 
-/* SHIRTI 1 */
+/* HEADER */
 
 .header {
   height:85px;
@@ -99,7 +93,7 @@ a { color:inherit; text-decoration:none; }
   color:var(--black);
 }
 
-/* SHIRTI 2 */
+/* CATEGORY BAR */
 
 .menu-bar {
   background:var(--brown);
@@ -161,10 +155,7 @@ a { color:inherit; text-decoration:none; }
   color:#1b1208;
   font-size:14px;
   font-weight:900;
-  transition:.25s;
 }
-
-.cart-button:hover { background:var(--gold-light); }
 
 .cart-count {
   min-width:23px;
@@ -193,7 +184,6 @@ a { color:inherit; text-decoration:none; }
   height:115px;
   object-fit:contain;
   margin-bottom:15px;
-  filter:drop-shadow(0 5px 12px rgba(107,53,37,.15));
 }
 
 .gold-line {
@@ -201,7 +191,10 @@ a { color:inherit; text-decoration:none; }
   height:3px;
   margin:18px auto;
   border-radius:5px;
-  background:linear-gradient(90deg,transparent,var(--orange),var(--brown),var(--orange),transparent);
+  background:linear-gradient(
+    90deg,transparent,var(--orange),
+    var(--brown),var(--orange),transparent
+  );
 }
 
 h1 {
@@ -253,7 +246,7 @@ h1 {
   border:1px solid var(--border);
   border-radius:16px;
   background:#fffaf2;
-  box-shadow:var(--shadow);
+  box-shadow:0 8px 25px rgba(107,53,37,.08);
   text-align:start;
 }
 
@@ -261,8 +254,8 @@ h1 {
   width:100%;
   aspect-ratio:4/3;
   display:block;
-  object-fit:cover;
-  background:#f2dfc9;
+  object-fit:contain;
+  background:#fffaf2;
 }
 
 .product-info { padding:15px; }
@@ -316,7 +309,7 @@ h1 {
   line-height:2;
 }
 
-/* CART MODAL */
+/* CART */
 
 .overlay {
   position:fixed;
@@ -341,12 +334,6 @@ h1 {
   border:2px solid var(--orange);
   border-radius:19px;
   box-shadow:0 15px 55px rgba(0,0,0,.3);
-  animation:popup .25s ease;
-}
-
-@keyframes popup {
-  from { opacity:0; transform:translateY(15px); }
-  to { opacity:1; transform:translateY(0); }
 }
 
 .modal-header {
@@ -359,7 +346,10 @@ h1 {
   margin-bottom:18px;
 }
 
-.modal-header h2 { color:var(--brown); font-size:22px; }
+.modal-header h2 {
+  color:var(--brown);
+  font-size:22px;
+}
 
 .close-button {
   width:35px;
@@ -387,9 +377,22 @@ h1 {
   border-bottom:1px solid var(--border);
 }
 
-.cart-item-info { flex:1; min-width:0; text-align:start; }
-.cart-item-name { color:var(--brown); font-weight:900; margin-bottom:4px; }
-.cart-item-price { color:var(--muted); font-size:13px; }
+.cart-item-info {
+  flex:1;
+  min-width:0;
+  text-align:start;
+}
+
+.cart-item-name {
+  color:var(--brown);
+  font-weight:900;
+  margin-bottom:4px;
+}
+
+.cart-item-price {
+  color:var(--muted);
+  font-size:13px;
+}
 
 .cart-controls {
   display:flex;
@@ -472,7 +475,6 @@ h1 {
   border:2px solid var(--orange);
   text-align:center;
   box-shadow:0 15px 60px rgba(0,0,0,.4);
-  animation:popup .35s ease;
 }
 
 .modal-logo {
@@ -511,7 +513,6 @@ h1 {
   color:var(--brown);
   font-size:16px;
   font-weight:800;
-  transition:.25s;
 }
 
 .modal-language-button:hover {
@@ -552,7 +553,6 @@ h1 {
   border-radius:9px;
   font-size:14px;
   font-weight:700;
-  transition:.25s;
 }
 
 .language-button:hover,
@@ -573,12 +573,23 @@ h1 {
 .footer strong { color:var(--orange); }
 
 @media(max-width:800px) {
-  .product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+  .product-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+  }
 }
 
 @media(max-width:700px) {
-  .menu-inner { align-items:stretch; flex-direction:column; }
-  .category-nav { width:100%; padding-bottom:4px; }
+  .menu-inner {
+    align-items:stretch;
+    flex-direction:column;
+  }
+
+  .category-nav {
+    width:100%;
+    padding-bottom:4px;
+  }
+
   .cart-button { width:100%; }
 }
 
@@ -594,7 +605,10 @@ h1 {
   .product-info { padding:11px; }
   .product-name { font-size:15px; }
   .product-description { font-size:12px; }
-  .product-bottom { align-items:flex-start; flex-direction:column; }
+  .product-bottom {
+    align-items:flex-start;
+    flex-direction:column;
+  }
   .add-button { width:100%; }
   .modal { padding:18px; }
 }
@@ -638,17 +652,17 @@ h1 {
       <span id="cartTotal">0 دینار</span>
     </div>
 
-    <button class="order-button" id="orderButton" type="button" disabled data-i18n="order">
+    <button class="order-button" id="orderButton"
+      type="button" disabled data-i18n="order">
       تەواوکردنی داواکاری
     </button>
   </div>
 </div>
 
-<!-- SHIRTI 1 -->
+<!-- HEADER -->
 
 <header class="header">
   <div class="header-inner">
-
     <a class="back-button" href="index.html">
       <span>←</span>
       <span data-i18n="back">گەڕانەوە</span>
@@ -657,15 +671,13 @@ h1 {
     <a class="brand" href="index.html">
       <img src="file_000000008c388246a1a14bb325b59eb6(1).png" alt="Rawsh">
     </a>
-
   </div>
 </header>
 
-<!-- SHIRTI 2 -->
+<!-- CATEGORY BAR -->
 
 <nav class="menu-bar">
   <div class="menu-inner">
-
     <div class="category-nav">
       <button class="category-button" data-category="pizza" data-i18n="pizza">پیتزا</button>
       <button class="category-button active" data-category="burger" data-i18n="burger">بەرگر</button>
@@ -677,7 +689,6 @@ h1 {
       <span data-i18n="cart">سەبەتە</span>
       <span class="cart-count" id="cartCount">0</span>
     </button>
-
   </div>
 </nav>
 
@@ -695,7 +706,7 @@ h1 {
   <p class="intro" data-i18n="intro">
     بەخێربێیت بۆ بەشی خواردن و شیرینی.
     لێرە دەتوانیت خواردن و خواردنەوەکان ببینیت
-    و بە ئاسانی زیاد بکەیتە ناو سەبەتەکەت.
+    و زیاد بکەیتە ناو سەبەتەکەت.
   </p>
 </main>
 
@@ -710,7 +721,8 @@ h1 {
 
   <div class="product-grid" id="productGrid"></div>
 
-  <div class="empty-category" id="emptyCategory" data-i18n="emptyCategory" style="display:none">
+  <div class="empty-category" id="emptyCategory"
+    data-i18n="emptyCategory" style="display:none">
     هیچ بەرهەمێک لەم بەشەدا نییە.
   </div>
 </section>
@@ -728,30 +740,80 @@ h1 {
 </section>
 
 <footer class="footer">
-  <strong>Rawsh</strong> — <span data-i18n="rights">هەموو مافەکان پارێزراون.</span>
+  <strong>Rawsh</strong> —
+  <span data-i18n="rights">هەموو مافەکان پارێزراون.</span>
 </footer>
 
 <script>
 
-/* PRODUCTS DATABASE */
+/* PRODUCT DATABASE */
 
 const products = [
   {
-    id: 1,
-    category: "burger",
-    price: 5000,
-    image: "16ae858fbc7387ba67e17166a6b2e8ee.jpg",
-
-    names: {
-      ku: "دبل چیز بەرگر",
-      en: "Double Cheese Burger",
-      ar: "دبل تشيز برغر"
+    id:1,
+    category:"burger",
+    price:5000,
+    image:"16ae858fbc7387ba67e17166a6b2e8ee.jpg",
+    names:{
+      ku:"دبل چیز بەرگر",
+      en:"Double Cheese Burger",
+      ar:"دبل تشيز برغر"
     },
+    descriptions:{
+      ku:"دوو پارچە گۆشتی بەرگر، پەنیری چێدار، کاهوو، تەماتە، پیاز، خیارشۆر و سۆسی بەرگر، لەگەڵ نانی بەرگری کەنەوادار.",
+      en:"Two beef patties, cheddar cheese, lettuce, tomato, onion, pickles and burger sauce in a sesame bun.",
+      ar:"قطعتان من لحم البرغر، جبنة شيدر، خس، طماطم، بصل، مخلل وصوص البرغر داخل خبز بالسمسم."
+    }
+  },
 
-    descriptions: {
-      ku: "دوو پارچە گۆشتی بەرگر، پەنیری چێدار، کاهوو، تەماتە، پیاز، خیارشۆر و سۆسی بەرگر، لەگەڵ نانی بەرگری کەنەوادار.",
-      en: "Two beef patties, cheddar cheese, lettuce, tomato, onion, pickles and burger sauce, served in a sesame bun.",
-      ar: "قطعتان من لحم البرغر، جبنة شيدر، خس، طماطم، بصل، مخلل وصوص البرغر، داخل خبز بالسمسم."
+  {
+    id:2,
+    category:"burger",
+    price:8500,
+    image:"file_00000000ddec81f4ae6e0c934c615ec9.png",
+    names:{
+      ku:"دبل کرێسپی چیکن بەرگر",
+      en:"Double Crispy Chicken Burger",
+      ar:"دبل كرسبي تشيكن برغر"
+    },
+    descriptions:{
+      ku:"دوو پارچە مریشکی کرێسپی، پەنیری چێدار، کاهوو، تەماتە و نانی بەرگری کەنەوادار.",
+      en:"Two crispy chicken fillets, cheddar cheese, lettuce, tomato and a sesame burger bun.",
+      ar:"قطعتان من الدجاج المقرمش، جبنة شيدر، خس، طماطم وخبز برغر بالسمسم."
+    }
+  },
+
+  {
+    id:3,
+    category:"pizza",
+    price:10000,
+    image:"0d6a5368d68572456e17f166a6eee7c7.jpg",
+    names:{
+      ku:"پیتزای سۆپریم",
+      en:"Supreme Pizza",
+      ar:"بيتزا سوبريم"
+    },
+    descriptions:{
+      ku:"پەنیری مۆزاریلا، سۆسی تەماتە، پەپەرۆنی، گۆشتی هاڕاو، قارچک، زەیتوونی ڕەش و فلفڵی سەوز و سوور.",
+      en:"Mozzarella cheese, tomato sauce, pepperoni, minced meat, mushrooms, black olives, and green and red bell peppers.",
+      ar:"جبنة موزاريلا، صلصة الطماطم، بيبروني، لحم مفروم، فطر، زيتون أسود، وفلفل أخضر وأحمر."
+    }
+  },
+
+  {
+    id:4,
+    category:"pizza",
+    price:12000,
+    image:"c519d4838c10d0c8ebfa7721f41705e3(1).png",
+    names:{
+      ku:"پیتزای پەپەرۆنی",
+      en:"Pepperoni Pizza",
+      ar:"بيتزا بيبروني"
+    },
+    descriptions:{
+      ku:"خەمیرەی پیتزا، سۆسی تەماتە، پەنیری مۆزاریلا، پارچەکانی پەپەرۆنی و ڕەیحانی تازە.",
+      en:"Pizza dough, tomato sauce, mozzarella cheese, pepperoni slices and fresh basil.",
+      ar:"عجينة البيتزا، صلصة الطماطم، جبنة موزاريلا، شرائح البيبروني والريحان الطازج."
     }
   }
 ];
@@ -759,12 +821,12 @@ const products = [
 /* TRANSLATIONS */
 
 const translations = {
-  ku: {
+  ku:{
     back:"گەڕانەوە",
     welcome:"بەخێربێیت",
     chooseLanguage:"تکایە زمانی دڵخوازت هەڵبژێرە",
     title:"خواردن و شیرینی",
-    intro:"بەخێربێیت بۆ بەشی خواردن و شیرینی. لێرە دەتوانیت خواردن و خواردنەوەکان ببینیت و بە ئاسانی زیاد بکەیتە ناو سەبەتەکەت.",
+    intro:"بەخێربێیت بۆ بەشی خواردن و شیرینی. لێرە دەتوانیت خواردن و خواردنەوەکان ببینیت و زیاد بکەیتە ناو سەبەتەکەت.",
     pizza:"پیتزا",
     burger:"بەرگر",
     appetizers:"موقەبیلات",
@@ -780,10 +842,15 @@ const translations = {
     emptyCategory:"هیچ بەرهەمێک لەم بەشەدا نییە. بەرهەمەکان دواتر زیاد دەکرێن.",
     add:"زیادکردن بۆ سەبەتە",
     currency:"دینار",
-    categoryNames:{pizza:"پیتزا",burger:"بەرگر",appetizers:"موقەبیلات",drinks:"خواردنەوە"}
+    categoryNames:{
+      pizza:"پیتزا",
+      burger:"بەرگر",
+      appetizers:"موقەبیلات",
+      drinks:"خواردنەوە"
+    }
   },
 
-  en: {
+  en:{
     back:"Go Back",
     welcome:"Welcome",
     chooseLanguage:"Please choose your preferred language",
@@ -804,10 +871,15 @@ const translations = {
     emptyCategory:"There are no products in this category yet.",
     add:"Add to Cart",
     currency:"IQD",
-    categoryNames:{pizza:"Pizza",burger:"Burgers",appetizers:"Appetizers",drinks:"Drinks"}
+    categoryNames:{
+      pizza:"Pizza",
+      burger:"Burgers",
+      appetizers:"Appetizers",
+      drinks:"Drinks"
+    }
   },
 
-  ar: {
+  ar:{
     back:"العودة",
     welcome:"أهلاً وسهلاً",
     chooseLanguage:"يرجى اختيار لغتك المفضلة",
@@ -828,46 +900,51 @@ const translations = {
     emptyCategory:"لا توجد منتجات في هذا القسم حالياً.",
     add:"أضف إلى السلة",
     currency:"دينار",
-    categoryNames:{pizza:"بيتزا",burger:"برغر",appetizers:"مقبلات",drinks:"مشروبات"}
+    categoryNames:{
+      pizza:"بيتزا",
+      burger:"برغر",
+      appetizers:"مقبلات",
+      drinks:"مشروبات"
+    }
   }
 };
 
 /* PAGE STATE */
 
-let currentLanguage = "ku";
-let currentCategory = "burger";
-let cart = [];
+let currentLanguage="ku";
+let currentCategory="burger";
+let cart=[];
 
-const languageOverlay = document.getElementById("languageOverlay");
-const cartOverlay = document.getElementById("cartOverlay");
-const cartItems = document.getElementById("cartItems");
-const cartCount = document.getElementById("cartCount");
-const cartTotal = document.getElementById("cartTotal");
-const productGrid = document.getElementById("productGrid");
-const emptyCategory = document.getElementById("emptyCategory");
-const orderButton = document.getElementById("orderButton");
+const languageOverlay=document.getElementById("languageOverlay");
+const cartOverlay=document.getElementById("cartOverlay");
+const cartItems=document.getElementById("cartItems");
+const cartCount=document.getElementById("cartCount");
+const cartTotal=document.getElementById("cartTotal");
+const productGrid=document.getElementById("productGrid");
+const emptyCategory=document.getElementById("emptyCategory");
+const orderButton=document.getElementById("orderButton");
 
 /* LANGUAGE */
 
-function changeLanguage(lang) {
-  const selected = translations[lang];
-  if (!selected) return;
+function changeLanguage(lang){
+  const selected=translations[lang];
+  if(!selected) return;
 
-  currentLanguage = lang;
+  currentLanguage=lang;
 
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==="en"?"ltr":"rtl";
 
-  document.querySelectorAll("[data-i18n]").forEach(element => {
-    const key = element.dataset.i18n;
-    if (selected[key]) element.textContent = selected[key];
+  document.querySelectorAll("[data-i18n]").forEach(element=>{
+    const key=element.dataset.i18n;
+    if(selected[key]) element.textContent=selected[key];
   });
 
-  document.querySelectorAll(".language-button").forEach(button => {
-    button.classList.toggle("active", button.dataset.lang === lang);
+  document.querySelectorAll(".language-button").forEach(button=>{
+    button.classList.toggle("active",button.dataset.lang===lang);
   });
 
-  document.title = selected.title + " | Rawsh";
+  document.title=selected.title+" | Rawsh";
 
   renderProducts();
   renderCart();
@@ -876,19 +953,22 @@ function changeLanguage(lang) {
   document.body.classList.remove("lock-scroll");
 }
 
-document.querySelectorAll("[data-lang]").forEach(button => {
-  button.addEventListener("click", () => {
+document.querySelectorAll("[data-lang]").forEach(button=>{
+  button.addEventListener("click",()=>{
     changeLanguage(button.dataset.lang);
   });
 });
 
-/* CATEGORY */
+/* CATEGORY NAVIGATION */
 
-function selectCategory(category) {
-  currentCategory = category;
+function selectCategory(category){
+  currentCategory=category;
 
-  document.querySelectorAll(".category-button").forEach(button => {
-    button.classList.toggle("active", button.dataset.category === category);
+  document.querySelectorAll(".category-button").forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.category===category
+    );
   });
 
   renderProducts();
@@ -899,93 +979,90 @@ function selectCategory(category) {
   });
 }
 
-document.querySelectorAll(".category-button").forEach(button => {
-  button.addEventListener("click", () => {
+document.querySelectorAll(".category-button").forEach(button=>{
+  button.addEventListener("click",()=>{
     selectCategory(button.dataset.category);
   });
 });
 
-/* PRODUCT DISPLAY */
+/* NUMBER FORMAT */
 
-function formatNumber(number) {
+function formatNumber(number){
   return new Intl.NumberFormat(
-    currentLanguage === "en" ? "en-US" :
-    currentLanguage === "ar" ? "ar-IQ" : "ku"
+    currentLanguage==="en"?"en-US":
+    currentLanguage==="ar"?"ar-IQ":"ku"
   ).format(number);
 }
 
-function renderProducts() {
-  const selected = translations[currentLanguage];
+/* DISPLAY PRODUCTS */
 
-  document.getElementById("categoryTitle").textContent =
+function renderProducts(){
+  const selected=translations[currentLanguage];
+
+  document.getElementById("categoryTitle").textContent=
     selected.categoryNames[currentCategory];
 
-  productGrid.innerHTML = "";
+  productGrid.innerHTML="";
 
-  const categoryProducts = products.filter(
-    product => product.category === currentCategory
+  const categoryProducts=products.filter(
+    product=>product.category===currentCategory
   );
 
-  if (categoryProducts.length === 0) {
-    emptyCategory.style.display = "block";
-    emptyCategory.textContent = selected.emptyCategory;
+  if(categoryProducts.length===0){
+    emptyCategory.style.display="block";
+    emptyCategory.textContent=selected.emptyCategory;
     return;
   }
 
-  emptyCategory.style.display = "none";
+  emptyCategory.style.display="none";
 
-  categoryProducts.forEach(product => {
-    const card = document.createElement("article");
-    card.className = "product-card";
+  categoryProducts.forEach(product=>{
+    const card=document.createElement("article");
+    card.className="product-card";
 
-    const image = document.createElement("img");
-    image.className = "product-image";
-    image.src = product.image;
-    image.alt = product.names[currentLanguage];
-    image.loading = "lazy";
+    const image=document.createElement("img");
+    image.className="product-image";
+    image.src=product.image;
+    image.alt=product.names[currentLanguage];
+    image.loading="lazy";
 
-    image.onerror = () => {
-      image.alt = "Product image unavailable";
-    };
+    const info=document.createElement("div");
+    info.className="product-info";
 
-    const info = document.createElement("div");
-    info.className = "product-info";
+    const name=document.createElement("h3");
+    name.className="product-name";
+    name.textContent=product.names[currentLanguage];
 
-    const name = document.createElement("h3");
-    name.className = "product-name";
-    name.textContent = product.names[currentLanguage];
+    const description=document.createElement("p");
+    description.className="product-description";
+    description.textContent=product.descriptions[currentLanguage];
 
-    const description = document.createElement("p");
-    description.className = "product-description";
-    description.textContent = product.descriptions[currentLanguage];
+    const bottom=document.createElement("div");
+    bottom.className="product-bottom";
 
-    const bottom = document.createElement("div");
-    bottom.className = "product-bottom";
+    const price=document.createElement("span");
+    price.className="product-price";
+    price.textContent=formatNumber(product.price)+" "+selected.currency;
 
-    const price = document.createElement("span");
-    price.className = "product-price";
-    price.textContent = formatNumber(product.price) + " " + selected.currency;
+    const addButton=document.createElement("button");
+    addButton.className="add-button";
+    addButton.type="button";
+    addButton.textContent=selected.add;
+    addButton.addEventListener("click",()=>addToCart(product.id));
 
-    const addButton = document.createElement("button");
-    addButton.className = "add-button";
-    addButton.type = "button";
-    addButton.textContent = selected.add;
-    addButton.addEventListener("click", () => addToCart(product.id));
-
-    bottom.append(price, addButton);
-    info.append(name, description, bottom);
-    card.append(image, info);
-
+    bottom.append(price,addButton);
+    info.append(name,description,bottom);
+    card.append(image,info);
     productGrid.appendChild(card);
   });
 }
 
-/* CART */
+/* CART SYSTEM */
 
-function addToCart(productId) {
-  const existing = cart.find(item => item.id === productId);
+function addToCart(productId){
+  const existing=cart.find(item=>item.id===productId);
 
-  if (existing) {
+  if(existing){
     existing.quantity++;
   } else {
     cart.push({id:productId,quantity:1});
@@ -994,130 +1071,134 @@ function addToCart(productId) {
   renderCart();
 }
 
-function changeQuantity(productId, amount) {
-  const item = cart.find(product => product.id === productId);
-  if (!item) return;
+function changeQuantity(productId,amount){
+  const item=cart.find(product=>product.id===productId);
+  if(!item) return;
 
-  item.quantity += amount;
+  item.quantity+=amount;
 
-  if (item.quantity <= 0) {
-    cart = cart.filter(product => product.id !== productId);
+  if(item.quantity<=0){
+    cart=cart.filter(product=>product.id!==productId);
   }
 
   renderCart();
 }
 
-function removeFromCart(productId) {
-  cart = cart.filter(product => product.id !== productId);
+function removeFromCart(productId){
+  cart=cart.filter(product=>product.id!==productId);
   renderCart();
 }
 
-function renderCart() {
-  const selected = translations[currentLanguage];
+function renderCart(){
+  const selected=translations[currentLanguage];
 
-  let totalItems = 0;
-  let totalPrice = 0;
+  let totalItems=0;
+  let totalPrice=0;
 
-  cartItems.innerHTML = "";
+  cartItems.innerHTML="";
 
-  if (cart.length === 0) {
-    const empty = document.createElement("div");
-    empty.className = "cart-empty";
-    empty.textContent = selected.emptyCart;
+  if(cart.length===0){
+    const empty=document.createElement("div");
+    empty.className="cart-empty";
+    empty.textContent=selected.emptyCart;
     cartItems.appendChild(empty);
   }
 
-  cart.forEach(cartItem => {
-    const product = products.find(item => item.id === cartItem.id);
-    if (!product) return;
+  cart.forEach(cartItem=>{
+    const product=products.find(item=>item.id===cartItem.id);
+    if(!product) return;
 
-    totalItems += cartItem.quantity;
-    totalPrice += product.price * cartItem.quantity;
+    totalItems+=cartItem.quantity;
+    totalPrice+=product.price*cartItem.quantity;
 
-    const row = document.createElement("div");
-    row.className = "cart-item";
+    const row=document.createElement("div");
+    row.className="cart-item";
 
-    const info = document.createElement("div");
-    info.className = "cart-item-info";
+    const info=document.createElement("div");
+    info.className="cart-item-info";
 
-    const name = document.createElement("div");
-    name.className = "cart-item-name";
-    name.textContent = product.names[currentLanguage];
+    const name=document.createElement("div");
+    name.className="cart-item-name";
+    name.textContent=product.names[currentLanguage];
 
-    const price = document.createElement("div");
-    price.className = "cart-item-price";
-    price.textContent = formatNumber(product.price) + " " + selected.currency;
+    const price=document.createElement("div");
+    price.className="cart-item-price";
+    price.textContent=formatNumber(product.price)+" "+selected.currency;
 
     info.append(name,price);
 
-    const controls = document.createElement("div");
-    controls.className = "cart-controls";
+    const controls=document.createElement("div");
+    controls.className="cart-controls";
 
-    const minus = document.createElement("button");
-    minus.className = "quantity-button";
-    minus.type = "button";
-    minus.textContent = "−";
-    minus.addEventListener("click",() => changeQuantity(product.id,-1));
+    const minus=document.createElement("button");
+    minus.className="quantity-button";
+    minus.type="button";
+    minus.textContent="−";
+    minus.addEventListener("click",()=>changeQuantity(product.id,-1));
 
-    const quantity = document.createElement("span");
-    quantity.className = "quantity-number";
-    quantity.textContent = cartItem.quantity;
+    const quantity=document.createElement("span");
+    quantity.className="quantity-number";
+    quantity.textContent=cartItem.quantity;
 
-    const plus = document.createElement("button");
-    plus.className = "quantity-button";
-    plus.type = "button";
-    plus.textContent = "+";
-    plus.addEventListener("click",() => changeQuantity(product.id,1));
+    const plus=document.createElement("button");
+    plus.className="quantity-button";
+    plus.type="button";
+    plus.textContent="+";
+    plus.addEventListener("click",()=>changeQuantity(product.id,1));
 
-    const remove = document.createElement("button");
-    remove.className = "remove-button";
-    remove.type = "button";
-    remove.textContent = "×";
-    remove.addEventListener("click",() => removeFromCart(product.id));
+    const remove=document.createElement("button");
+    remove.className="remove-button";
+    remove.type="button";
+    remove.textContent="×";
+    remove.addEventListener("click",()=>removeFromCart(product.id));
 
     controls.append(minus,quantity,plus,remove);
     row.append(info,controls);
     cartItems.appendChild(row);
   });
 
-  cartCount.textContent = totalItems;
-  cartTotal.textContent = formatNumber(totalPrice) + " " + selected.currency;
-  orderButton.disabled = cart.length === 0;
+  cartCount.textContent=totalItems;
+  cartTotal.textContent=formatNumber(totalPrice)+" "+selected.currency;
+  orderButton.disabled=cart.length===0;
 }
 
-/* CART OPEN / CLOSE */
+/* OPEN / CLOSE CART */
 
-document.getElementById("openCart").addEventListener("click",() => {
+document.getElementById("openCart").addEventListener("click",()=>{
   renderCart();
   cartOverlay.classList.remove("hidden");
   document.body.classList.add("lock-scroll");
 });
 
-function closeCart() {
+function closeCart(){
   cartOverlay.classList.add("hidden");
   document.body.classList.remove("lock-scroll");
 }
 
 document.getElementById("closeCart").addEventListener("click",closeCart);
 
-cartOverlay.addEventListener("click",event => {
-  if (event.target === cartOverlay) closeCart();
+cartOverlay.addEventListener("click",event=>{
+  if(event.target===cartOverlay) closeCart();
 });
 
-document.addEventListener("keydown",event => {
-  if (event.key === "Escape") closeCart();
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape"){
+    closeCart();
+    languageOverlay.classList.add("hidden");
+    document.body.classList.remove("lock-scroll");
+  }
 });
 
 /* ORDER BUTTON */
 
-orderButton.addEventListener("click",() => {
-  if (cart.length === 0) return;
+orderButton.addEventListener("click",()=>{
+  if(cart.length===0) return;
 
-  const message = currentLanguage === "en"
-    ? "The order submission service will be connected in the next step."
-    : currentLanguage === "ar"
-    ? "سيتم ربط خدمة إرسال الطلبات في الخطوة القادمة."
-    : "خزمەتی ناردنی داواکاری لە هەنگاوی داهاتوودا زیاد دەکرێت.";
+  const message=currentLanguage==="en"
+    ?"The order submission service will be connected in the next step."
+    :currentLanguage==="ar"
+    ?"سيتم ربط خدمة إرسال الطلبات في الخطوة القادمة."
+    :"خزمەتی ناردنی داواکاری لە هەنگاوی داهاتوودا زیاد دەکرێت.";
 
   alert(message);
 });
@@ -1131,6 +1212,5 @@ languageOverlay.classList.remove("hidden");
 document.body.classList.add("lock-scroll");
 
 </script>
-
 </body>
 </html>
