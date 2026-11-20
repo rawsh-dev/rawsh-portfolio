@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="پەیوەندی بە Rawsh">
+  <title>پەیوەندی | Rawsh</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold: #e9ad24;
+      --gold-light: #ffdc78;
+      --black: #050505;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at center,#191207 0%,#080808 48%,#030303 100%);
+      color: #fff;
+      font-family: "Noto Sans Arabic",sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* HEADER */
+
+    .header {
+      height: 85px;
+      width: 100%;
+      border-bottom: 1px solid rgba(225,170,50,.25);
+      background: rgba(0,0,0,.75);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      direction: ltr;
+    }
+
+    .r-logo {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .wordmark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    .wordmark img {
+      width: 155px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .back {
+      color: var(--gold-light);
+      font-size: 14px;
+      font-weight: 700;
+      direction: rtl;
+    }
+
+    /* MAIN */
+
+    .main {
+      min-height: calc(100vh - 85px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 45px 20px 70px;
+    }
+
+    .contact-logo {
+      width: min(290px,75%);
+      height: auto;
+      margin-bottom: 15px;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 18px rgba(225,170,40,.2));
+    }
+
+    h1 {
+      color: var(--gold-light);
+      font-size: clamp(25px,5vw,36px);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: #d4d0c8;
+      font-size: 16px;
+      line-height: 2;
+      margin-bottom: 25px;
+      max-width: 500px;
+    }
+
+    .phone {
+      direction: ltr;
+      color: #fff;
+      font-size: clamp(25px,6vw,34px);
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 35px;
+      text-shadow: 0 0 15px rgba(255,190,60,.2);
+    }
+
+    /* CONTACT BUTTONS */
+
+    .buttons {
+      width: min(420px,100%);
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+    }
+
+    .contact-button {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      border-radius: 15px;
+      font-size: 19px;
+      font-weight: 800;
+      color: #fff;
+      transition: .25s;
+    }
+
+    .contact-button:hover {
+      transform: translateY(-3px);
+    }
+
+    .whatsapp {
+      background: linear-gradient(135deg,#177c43,#075b30);
+      border: 1px solid rgba(93,220,143,.45);
+      box-shadow: 0 8px 25px rgba(20,130,65,.17);
+    }
+
+    .viber {
+      background: linear-gradient(135deg,#7950a9,#45216e);
+      border: 1px solid rgba(190,145,240,.4);
+      box-shadow: 0 8px 25px rgba(100,50,150,.17);
+    }
+
+    .button-icon {
+      width: 27px;
+      height: 27px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+    }
+
+    .footer {
+      color: #888;
+      font-size: 12px;
+      margin-top: 65px;
+    }
+
+    .footer strong {
+      color: var(--gold);
+    }
+
+    /* MOBILE */
+
+    @media (max-width:600px) {
+      .header {
+        height: 72px;
+        padding: 0 14px;
+      }
+
+      .r-logo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .wordmark img {
+        width: 125px;
+      }
+
+      .back {
+        font-size: 12px;
+      }
+
+      .main {
+        min-height: calc(100vh - 72px);
+        padding-top: 30px;
+      }
+
+      .contact-logo {
+        width: min(260px,80%);
+      }
+
+      .subtitle {
+        font-size: 14px;
+      }
+
+      .contact-button {
+        min-height: 60px;
+        font-size: 17px;
+      }
+
+      .footer {
+        margin-top: 50px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+
+    <img
+      class="r-logo"
+      src="file_0000000090a081f4805def2e8128fe81.png"
+      alt="R"
+    >
+
+    <a href="index.html" class="wordmark">
+      <img
+        src="file_000000008c388246a1a14bb325b59eb6(1).png"
+        alt="Rawsh"
+      >
+    </a>
+
+    <a href="index.html" class="back">گەڕانەوە</a>
+
+  </header>
+
+  <main class="main">
+
+    <img
+      class="contact-logo"
+      src="file_0000000090a081f4805def2e8128fe81.png"
+      alt="Rawsh R"
+    >
+
+    <h1>پەیوەندی بە Rawsh</h1>
+
+    <p class="subtitle">
+      بۆ داواکردنی وێبسایت و پرسیارەکانت،
+      لە ڕێگەی ئەم دوو خزمەتگوزارییەوە پەیوەندیمان پێوە بکە.
+    </p>
+
+    <div class="phone">0777 150 34 74</div>
+
+    <div class="buttons">
+
+      <a
+        class="contact-button whatsapp"
+        href="https://wa.me/9647771503474"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="button-icon">◉</span>
+        پەیوەندی لە واتساپ
+      </a>
+
+      <a
+        class="contact-button viber"
+        href="viber://chat?number=%2B9647771503474"
+      >
+        <span class="button-icon">☎</span>
+        پەیوەندی لە ڤایبەر
+      </a>
+
+    </div>
+
+    <div class="footer">
+      <strong>Rawsh</strong> — هەموو مافەکان پارێزراون.
+    </div>
+
+  </main>
+
+</body>
+</html>
