@@ -64,13 +64,28 @@
       align-items: center;
       justify-content: space-between;
       direction: ltr;
+      position: relative;
     }
 
-    .brand-icon {
-      width: 65px;
-      height: 65px;
+    /* RAWSh WORDMARK IN CENTER OF HEADER */
+
+    .brand-wordmark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    .brand-wordmark img {
+      width: 165px;
+      height: auto;
       object-fit: contain;
       display: block;
+      filter: drop-shadow(0 0 8px rgba(230, 165, 35, .18));
     }
 
     .navigation {
@@ -168,7 +183,7 @@
       padding: 35px 15px;
     }
 
-    /* MAIN LOGO */
+    /* LARGE R LOGO IN HERO */
 
     .main-logo {
       width: min(440px, 90%);
@@ -381,9 +396,8 @@
         width: 92%;
       }
 
-      .brand-icon {
-        width: 53px;
-        height: 53px;
+      .brand-wordmark img {
+        width: 125px;
       }
 
       .menu-toggle {
@@ -543,11 +557,11 @@
   <header class="header">
     <div class="header-inner">
 
-      <a href="#home" aria-label="Rawsh">
+      <!-- Rawsh wordmark centered in header -->
+      <a href="#home" class="brand-wordmark" aria-label="Rawsh">
         <img
-          class="brand-icon"
-          src="file_0000000090a081f4805def2e8128fe81.png"
-          alt="Rawsh R Logo"
+          src="file_000000008c388246a1a14bb325b59eb6(1).png"
+          alt="Rawsh"
         >
       </a>
 
@@ -572,16 +586,18 @@
 
     <section class="hero">
 
+      <!-- Mobile background image -->
       <div class="hero-visual"></div>
 
       <div class="hero-inner">
 
         <div class="hero-content">
 
+          <!-- Large R logo in the hero -->
           <img
             class="main-logo"
             src="file_000000008c388246a1a14bb325b59eb6.png"
-            alt="Rawsh Logo"
+            alt="Rawsh R Logo"
           >
 
           <h1 class="slogan">
