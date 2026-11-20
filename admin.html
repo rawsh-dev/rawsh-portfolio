@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6B3525">
+<title>Rawsh Admin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --cream:#FFF3E0;
+  --brown:#6B3525;
+  --orange:#D96B32;
+  --white:#fff;
+  --muted:#795b4d;
+  --border:rgba(107,53,37,.2);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  background:var(--cream);
+  color:var(--brown);
+  font-family:"Noto Sans Arabic",sans-serif;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.header{
+  background:var(--brown);
+  color:white;
+  padding:18px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.header strong{font-size:21px;color:#ffdc78}
+.header a{color:white;text-decoration:none;font-size:13px}
+.container{width:min(950px,92%);margin:30px auto 60px}
+.card{
+  background:#fffaf2;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:22px;
+  margin-bottom:22px;
+  box-shadow:0 7px 24px rgba(107,53,37,.06);
+}
+h1{font-size:25px;margin-bottom:8px}
+h2{font-size:20px;margin-bottom:17px}
+.subtitle{color:var(--muted);font-size:13px;line-height:2}
+.field{margin-bottom:15px}
+label{display:block;font-weight:800;font-size:13px;margin-bottom:7px}
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:white;
+  color:var(--brown);
+  outline:none;
+}
+input:focus,textarea:focus,select:focus{
+  border-color:var(--orange);
+}
+textarea{min-height:85px;resize:vertical}
+.primary,.secondary,.danger{
+  border:0;
+  padding:11px 17px;
+  border-radius:9px;
+  font-weight:800;
+}
+.primary{background:var(--brown);color:white}
+.primary:hover{background:var(--orange)}
+.secondary{background:#f0dfca;color:var(--brown)}
+.danger{background:#b13a2b;color:white}
+button:disabled{opacity:.55;cursor:not-allowed}
+.full{width:100%}
+.hidden{display:none!important}
+.message{
+  padding:12px;
+  border-radius:9px;
+  margin:12px 0;
+  font-size:13px;
+  line-height:1.8;
+  display:none;
+}
+.message.error{display:block;background:#ffe4df;color:#9b2419}
+.message.success{display:block;background:#e1f3e3;color:#216b32}
+.image-preview{
+  width:100%;
+  max-height:240px;
+  object-fit:contain;
+  background:white;
+  border:1px dashed var(--border);
+  border-radius:10px;
+  margin-top:10px;
+  display:none;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.product-row{
+  display:grid;
+  grid-template-columns:85px 1fr;
+  gap:13px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+.product-row img{
+  width:85px;height:85px;object-fit:contain;
+  background:white;border-radius:9px;
+}
+.product-row h3{font-size:15px;margin-bottom:5px}
+.product-row p{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
+.actions button{font-size:12px;padding:7px 12px}
+.top-actions{display:flex;justify-content:space-between;gap:10px;align-items:center}
+#loginSection{max-width:470px;margin:60px auto}
+.status{font-size:12px;color:var(--muted);margin-top:8px}
+@media(max-width:600px){
+ .grid{grid-template-columns:1fr}
+ .card{padding:16px}
+ .container{margin-top:20px}
+ .header{padding:15px 4%}
+ .product-row{grid-template-columns:75px 1fr}
+ .product-row img{width:75px;height:75px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <strong>RAWSH ADMIN</strong>
+  <a href="food.html">گەڕانەوە بۆ پەڕەی خواردن ←</a>
+</header>
+
+<main class="container">
+
+  <!-- LOGIN -->
+  <section class="card" id="loginSection">
+    <h1>چوونەژوورەوە</h1>
+    <p class="subtitle">بۆ بەڕێوەبردنی بەرهەمەکانی Rawsh، ئیمەیڵ و وشەی نهێنی بنووسە.</p>
+
+    <div class="field">
+      <label for="email">ئیمەیڵ</label>
+      <input id="email" type="email" autocomplete="username" placeholder="name@example.com">
+    </div>
+
+    <div class="field">
+      <label for="password">وشەی نهێنی</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="وشەی نهێنی">
+    </div>
+
+    <div id="loginMessage" class="message"></div>
+    <button class="primary full" id="loginButton" type="button">چوونەژوورەوە</button>
+    <p class="status">تەنها هەژمارە ڕێگەپێدراوەکان دەتوانن بچنە ژوورەوە.</p>
+  </section>
+
+  <!-- ADMIN DASHBOARD -->
+  <section id="dashboard" class="hidden">
+
+    <div class="card">
+      <div class="top-actions">
+        <div>
+          <h1>بەخێربێیت بۆ ئەدمین پانێڵ</h1>
+          <p class="subtitle" id="adminEmail"></p>
+        </div>
+        <button class="secondary" id="logoutButton" type="button">چوونەدەرەوە</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT FORM -->
+    <section class="card" id="productFormCard">
+      <h2 id="formTitle">+ زیادکردنی خواردنی نوێ</h2>
+
+      <form id="productForm">
+
+        <div class="field">
+          <label for="category">بەشی خواردن</label>
+          <select id="category" required>
+            <option value="pizza">پیتزا</option>
+            <option value="burger">بەرگر</option>
+            <option value="appetizers">موقەبیلات</option>
+            <option value="drinks">خواردنەوە</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="productImage">وێنەی خواردن</label>
+          <input id="productImage" type="file" accept="image/jpeg,image/png,image/webp" >
+          <img id="imagePreview" class="image-preview" alt="پێشبینینی وێنە">
+          <p class="status">وێنەی JPG، PNG یان WebP هەڵبژێرە. زۆرترین قەبارە 5MB.</p>
+        </div>
+
+        <div class="grid">
+          <div class="field">
+            <label for="nameKu">ناو بە کوردی</label>
+            <input id="nameKu" required placeholder="ناوی خواردن">
+          </div>
+          <div class="field">
+            <label for="nameEn">ناو بە ئینگلیزی</label>
+            <input id="nameEn" placeholder="Product name">
+          </div>
+          <div class="field">
+            <label for="nameAr">ناو بە عەرەبی</label>
+            <input id="nameAr" placeholder="اسم المنتج">
+          </div>
+          <div class="field">
+            <label for="price">نرخ بە دیناری عێراقی</label>
+            <input id="price" type="number" min="0" step="250" required placeholder="5000">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="descriptionKu">پێکهاتە و ناساندن بە کوردی</label>
+          <textarea id="descriptionKu" placeholder="پێکهاتەکانی خواردن..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="descriptionEn">پێکهاتە و ناساندن بە ئینگلیزی</label>
+          <textarea id="descriptionEn" placeholder="Product description..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="descriptionAr">پێکهاتە و ناساندن بە عەرەبی</label>
+          <textarea id="descriptionAr" placeholder="وصف المنتج..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>
+            <input id="available" type="checkbox" checked style="width:auto;margin-left:7px">
+            بەرهەمەکە بەردەستە
+          </label>
+        </div>
+
+        <div id="formMessage" class="message"></div>
+
+        <button class="primary full" id="saveButton" type="submit">
+          زیادکردنی ئایتم
+        </button>
+
+        <button class="secondary full hidden" id="cancelEdit" type="button" style="margin-top:9px">
+          هەڵوەشاندنەوەی دەستکاری
+        </button>
+
+      </form>
+    </section>
+
+    <!-- PRODUCTS LIST -->
+    <section class="card">
+      <div class="top-actions">
+        <h2>بەڕێوەبردنی خواردنەکان</h2>
+        <button class="secondary" id="refreshButton" type="button">نوێکردنەوە</button>
+      </div>
+
+      <div class="field">
+        <label for="filterCategory">فلتەرکردن بە پێی بەش</label>
+        <select id="filterCategory">
+          <option value="all">هەموو بەشەکان</option>
+          <option value="pizza">پیتزا</option>
+          <option value="burger">بەرگر</option>
+          <option value="appetizers">موقەبیلات</option>
+          <option value="drinks">خواردنەوە</option>
+        </select>
+      </div>
+
+      <div id="productsList"></div>
+      <div id="listMessage" class="status"></div>
+    </section>
+
+  </section>
+</main>
+
+<script>
+/* SUPABASE CONFIGURATION */
+
+const SUPABASE_URL = "https://lpjjiulbtnmdduzehemo.supabase.co";
+const SUPABASE_KEY = "sb_publishable_wRIJG2sZhNLe5sN8CQayCQ_7K2_AqWF";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+/* ELEMENTS */
+
+const loginSection = document.getElementById("loginSection");
+const dashboard = document.getElementById("dashboard");
+const loginMessage = document.getElementById("loginMessage");
+const formMessage = document.getElementById("formMessage");
+const productsList = document.getElementById("productsList");
+
+let editingId = null;
+let existingImageUrl = "";
+
+/* MESSAGE */
+
+function showMessage(element, message, type="error") {
+  element.textContent = message;
+  element.className = "message " + type;
+}
+
+function clearMessage(element) {
+  element.textContent = "";
+  element.className = "message";
+}
+
+/* AUTHENTICATION AND ADMIN CHECK */
+
+async function checkAdmin() {
+  const {data:{session},error} = await db.auth.getSession();
+
+  if(error || !session) {
+    showLogin();
+    return false;
+  }
+
+  const {data,error:adminError} = await db
+    .from("admin_users")
+    .select("user_id,role")
+    .eq("user_id",session.user.id)
+    .maybeSingle();
+
+  if(adminError || !data) {
+    await db.auth.signOut();
+    showLogin();
+    showMessage(
+      loginMessage,
+      "ئەم هەژمارە دەسەڵاتی ئەدمینی نییە. تکایە پەیوەندی بە خاوەنی سیستەمەکە بکە."
+    );
+    return false;
+  }
+
+  loginSection.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  document.getElementById("adminEmail").textContent=session.user.email || "";
+  await loadProducts();
+  return true;
+}
+
+function showLogin() {
+  loginSection.classList.remove("hidden");
+  dashboard.classList.add("hidden");
+}
+
+/* LOGIN */
+
+document.getElementById("loginButton").addEventListener("click",async()=>{
+  clearMessage(loginMessage);
+
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+
+  if(!email || !password) {
+    showMessage(loginMessage,"ئیمەیڵ و وشەی نهێنی پڕ بکەرەوە.");
+    return;
+  }
+
+  const button=document.getElementById("loginButton");
+  button.disabled=true;
+  button.textContent="چاوەڕێ بکە...";
+
+  const {error}=await db.auth.signInWithPassword({email,password});
+
+  button.disabled=false;
+  button.textContent="چوونەژوورەوە";
+
+  if(error) {
+    showMessage(loginMessage,"چوونەژوورەوە سەرکەوتوو نەبوو. زانیارییەکانت بپشکنە.");
+    return;
+  }
+
+  await checkAdmin();
+});
+
+/* LOGOUT */
+
+document.getElementById("logoutButton").addEventListener("click",async()=>{
+  await db.auth.signOut();
+  showLogin();
+  document.getElementById("password").value="";
+});
+
+/* IMAGE PREVIEW */
+
+document.getElementById("productImage").addEventListener("change",event=>{
+  const file=event.target.files[0];
+  const preview=document.getElementById("imagePreview");
+
+  if(!file) {
+    preview.style.display="none";
+    return;
+  }
+
+  if(file.size>5*1024*1024) {
+    showMessage(formMessage,"قەبارەی وێنەکە نابێت لە 5MB زیاتر بێت.");
+    event.target.value="";
+    preview.style.display="none";
+    return;
+  }
+
+  if(!["image/jpeg","image/png","image/webp"].includes(file.type)) {
+    showMessage(formMessage,"تەنها JPG، PNG یان WebP قبوڵ دەکرێت.");
+    event.target.value="";
+    preview.style.display="none";
+    return;
+  }
+
+  clearMessage(formMessage);
+  preview.src=URL.createObjectURL(file);
+  preview.style.display="block";
+});
+
+/* IMAGE UPLOAD */
+
+async function uploadImage(file) {
+  const extension=file.name.split(".").pop().toLowerCase();
+  const safeExtension=["jpg","jpeg","png","webp"].includes(extension)
+    ? extension : "jpg";
+
+  const path=crypto.randomUUID()+"."+safeExtension;
+
+  const {error}=await db.storage
+    .from("food-images")
+    .upload(path,file,{
+      cacheControl:"3600",
+      upsert:false,
+      contentType:file.type
+    });
+
+  if(error) throw error;
+
+  const {data}=db.storage
+    .from("food-images")
+    .getPublicUrl(path);
+
+  return data.publicUrl;
+}
+
+/* SAVE PRODUCT */
+
+document.getElementById("productForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  clearMessage(formMessage);
+
+  const button=document.getElementById("saveButton");
+  const file=document.getElementById("productImage").files[0];
+
+  const nameKu=document.getElementById("nameKu").value.trim();
+  const price=Number(document.getElementById("price").value);
+
+  if(!nameKu || !Number.isSafeInteger(price) || price<0) {
+    showMessage(formMessage,"ناو و نرخ بە دروستی پڕ بکەرەوە.");
+    return;
+  }
+
+  if(!editingId && !file) {
+    showMessage(formMessage,"تکایە وێنەی خواردن هەڵبژێرە.");
+    return;
+  }
+
+  button.disabled=true;
+  button.textContent="تکایە چاوەڕێ بکە...";
+
+  try {
+    let imageUrl=existingImageUrl;
+
+    if(file) {
+      imageUrl=await uploadImage(file);
+    }
+
+    const product={
+      category:document.getElementById("category").value,
+      name_ku:nameKu,
+      name_en:document.getElementById("nameEn").value.trim(),
+      name_ar:document.getElementById("nameAr").value.trim(),
+      description_ku:document.getElementById("descriptionKu").value.trim(),
+      description_en:document.getElementById("descriptionEn").value.trim(),
+      description_ar:document.getElementById("descriptionAr").value.trim(),
+      price,
+      image_url:imageUrl,
+      is_available:document.getElementById("available").checked
+    };
+
+    let result;
+
+    if(editingId) {
+      result=await db.from("products").update(product).eq("id",editingId);
+    } else {
+      result=await db.from("products").insert(product);
+    }
+
+    if(result.error) throw result.error;
+
+    showMessage(
+      formMessage,
+      editingId ? "ئایتمەکە نوێ کرایەوە." : "ئایتمەکە بە سەرکەوتوویی زیاد کرا.",
+      "success"
+    );
+
+    resetForm();
+    await loadProducts();
+
+  } catch(error) {
+    console.error(error);
+    showMessage(formMessage,"کێشەیەک ڕوویدا. تکایە دڵنیابە لە پەیوەندی و ڕێکخستنی Supabase.");
+  } finally {
+    button.disabled=false;
+    button.textContent=editingId ? "نوێکردنەوەی ئایتم" : "زیادکردنی ئایتم";
+  }
+});
+
+/* RESET FORM */
+
+function resetForm() {
+  editingId=null;
+  existingImageUrl="";
+  document.getElementById("productForm").reset();
+  document.getElementById("available").checked=true;
+  document.getElementById("imagePreview").style.display="none";
+  document.getElementById("formTitle").textContent="+ زیادکردنی خواردنی نوێ";
+  document.getElementById("saveButton").textContent="زیادکردنی ئایتم";
+  document.getElementById("cancelEdit").classList.add("hidden");
+}
+
+/* EDIT PRODUCT */
+
+function editProduct(product) {
+  editingId=product.id;
+  existingImageUrl=product.image_url || "";
+
+  document.getElementById("category").value=product.category;
+  document.getElementById("nameKu").value=product.name_ku || "";
+  document.getElementById("nameEn").value=product.name_en || "";
+  document.getElementById("nameAr").value=product.name_ar || "";
+  document.getElementById("descriptionKu").value=product.description_ku || "";
+  document.getElementById("descriptionEn").value=product.description_en || "";
+  document.getElementById("descriptionAr").value=product.description_ar || "";
+  document.getElementById("price").value=product.price;
+  document.getElementById("available").checked=product.is_available;
+
+  const preview=document.getElementById("imagePreview");
+
+  if(product.image_url) {
+    preview.src=product.image_url;
+    preview.style.display="block";
+  }
+
+  document.getElementById("formTitle").textContent="دەستکاریکردنی ئایتم";
+  document.getElementById("saveButton").textContent="نوێکردنەوەی ئایتم";
+  document.getElementById("cancelEdit").classList.remove("hidden");
+
+  clearMessage(formMessage);
+
+  document.getElementById("productFormCard").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+}
+
+document.getElementById("cancelEdit").addEventListener("click",resetForm);
+
+/* DELETE PRODUCT */
+
+async function deleteProduct(id) {
+  if(!confirm("دڵنیایت لە سڕینەوەی ئەم ئایتمە؟")) return;
+
+  const {error}=await db.from("products").delete().eq("id",id);
+
+  if(error) {
+    alert("سڕینەوە سەرکەوتوو نەبوو.");
+    return;
+  }
+
+  await loadProducts();
+}
+
+/* CATEGORY NAMES */
+
+const categoryNames={
+  pizza:"پیتزا",
+  burger:"بەرگر",
+  appetizers:"موقەبیلات",
+  drinks:"خواردنەوە"
+};
+
+/* LOAD PRODUCTS */
+
+async function loadProducts() {
+  productsList.innerHTML="چاوەڕێ بکە...";
+
+  const {data,error}=await db
+    .from("products")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error) {
+    productsList.textContent="نەتوانرا بەرهەمەکان باربکرێن.";
+    return;
+  }
+
+  const filter=document.getElementById("filterCategory").value;
+  const filtered=filter==="all"
+    ? data
+    : data.filter(item=>item.category===filter);
+
+  productsList.innerHTML="";
+
+  if(filtered.length===0) {
+    productsList.textContent="هیچ ئایتمێک نەدۆزرایەوە.";
+    return;
+  }
+
+  filtered.forEach(product=>{
+    const row=document.createElement("article");
+    row.className="product-row";
+
+    const image=document.createElement("img");
+    image.src=product.image_url || "";
+    image.alt=product.name_ku || "";
+    image.loading="lazy";
+
+    const info=document.createElement("div");
+
+    const name=document.createElement("h3");
+    name.textContent=product.name_ku;
+
+    const detail=document.createElement("p");
+    detail.textContent=
+      (categoryNames[product.category] || product.category)
+      +" • "+Number(product.price).toLocaleString("en-US")+" دینار"
+      +" • "+(product.is_available ? "بەردەستە" : "بەردەست نییە");
+
+    const actions=document.createElement("div");
+    actions.className="actions";
+
+    const edit=document.createElement("button");
+    edit.type="button";
+    edit.className="secondary";
+    edit.textContent="دەستکاری";
+    edit.addEventListener("click",()=>editProduct(product));
+
+    const remove=document.createElement("button");
+    remove.type="button";
+    remove.className="danger";
+    remove.textContent="سڕینەوە";
+    remove.addEventListener("click",()=>deleteProduct(product.id));
+
+    actions.append(edit,remove);
+    info.append(name,detail,actions);
+    row.append(image,info);
+    productsList.appendChild(row);
+  });
+}
+
+/* FILTER AND REFRESH */
+
+document.getElementById("filterCategory").addEventListener("change",loadProducts);
+document.getElementById("refreshButton").addEventListener("click",loadProducts);
+
+/* INITIAL SESSION */
+
+db.auth.onAuthStateChange((event,session)=>{
+  if(event==="SIGNED_OUT") showLogin();
+});
+
+checkAdmin();
+</script>
+
+</body>
+</html>
