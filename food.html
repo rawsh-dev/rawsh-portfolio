@@ -4,19 +4,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#FFF3E0">
 <meta name="description" content="Rawsh - Food & Sweets">
 <title>خواردن و شیرینی | Rawsh</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root {
-  --black:#050505;
-  --gold:#e9ad24;
-  --gold-light:#ffdc78;
   --cream:#FFF3E0;
   --brown:#6B3525;
   --orange:#D96B32;
@@ -24,583 +22,235 @@
   --muted:#795b4d;
   --border:rgba(107,53,37,.2);
 }
-
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  min-height:100vh;display:flex;flex-direction:column;
+  background:var(--cream);color:var(--brown);
+  font-family:"Noto Sans Arabic",sans-serif
 }
-
-body {
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  background:var(--cream);
-  color:var(--brown);
-  font-family:"Noto Sans Arabic",sans-serif;
-}
-
-body.lock-scroll { overflow:hidden; }
-button { font-family:inherit; cursor:pointer; }
-a { color:inherit; text-decoration:none; }
+body.lock-scroll{overflow:hidden}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
 
 /* HEADER */
-
-.header {
-  height:85px;
-  flex-shrink:0;
-  background:var(--black);
-  border-bottom:1px solid rgba(220,164,42,.3);
+.header{
+  height:85px;flex-shrink:0;background:#050505;
+  border-bottom:1px solid rgba(220,164,42,.3)
 }
-
-.header-inner {
-  width:min(1200px,92%);
-  height:100%;
-  margin:auto;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  direction:ltr;
+.header-inner{
+  width:min(1200px,92%);height:100%;margin:auto;
+  position:relative;display:flex;align-items:center;
+  justify-content:space-between;direction:ltr
 }
-
-.brand {
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
+.brand{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%)
 }
-
-.brand img {
-  width:155px;
-  display:block;
-  object-fit:contain;
-  filter:drop-shadow(0 0 9px rgba(230,165,35,.2));
+.brand img{
+  width:155px;display:block;object-fit:contain;
+  filter:drop-shadow(0 0 9px rgba(230,165,35,.2))
 }
-
-.back-button {
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  padding:10px 18px;
-  border:1px solid var(--gold);
-  border-radius:9px;
-  color:var(--gold-light);
-  font-size:14px;
-  font-weight:700;
-  direction:rtl;
-  transition:.3s;
+.back-button{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:10px 18px;border:1px solid #e9ad24;
+  border-radius:9px;color:#ffdc78;font-size:14px;
+  font-weight:700;direction:rtl;transition:.3s
 }
-
-.back-button:hover {
-  background:var(--gold);
-  color:var(--black);
-}
+.back-button:hover{background:#e9ad24;color:#050505}
 
 /* CATEGORY BAR */
-
-.menu-bar {
-  background:var(--brown);
-  color:var(--cream);
-  padding:13px 4%;
-  box-shadow:0 4px 15px rgba(107,53,37,.15);
+.menu-bar{
+  background:var(--brown);color:var(--cream);
+  padding:13px 4%;box-shadow:0 4px 15px rgba(107,53,37,.15)
 }
-
-.menu-inner {
-  width:min(1200px,100%);
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
+.menu-inner{
+  width:min(1200px,100%);margin:auto;
+  display:flex;align-items:center;justify-content:space-between;gap:15px
 }
-
-.category-nav {
-  display:flex;
-  align-items:center;
-  gap:9px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  flex:1;
+.category-nav{
+  display:flex;align-items:center;gap:9px;
+  overflow-x:auto;scrollbar-width:none;flex:1
 }
-
-.category-nav::-webkit-scrollbar { display:none; }
-
-.category-button {
-  flex-shrink:0;
-  white-space:nowrap;
+.category-nav::-webkit-scrollbar{display:none}
+.category-button{
+  flex-shrink:0;white-space:nowrap;
   border:1px solid rgba(255,243,224,.3);
-  background:transparent;
-  color:var(--cream);
-  padding:10px 17px;
-  border-radius:10px;
-  font-size:14px;
-  font-weight:700;
-  transition:.25s;
+  background:transparent;color:var(--cream);
+  padding:10px 17px;border-radius:10px;
+  font-size:14px;font-weight:700;transition:.25s
 }
-
-.category-button:hover,
-.category-button.active {
-  background:var(--cream);
-  color:var(--brown);
-  border-color:var(--cream);
+.category-button:hover,.category-button.active{
+  background:var(--cream);color:var(--brown);border-color:var(--cream)
 }
-
-.cart-button {
-  flex-shrink:0;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
-  padding:10px 16px;
-  border:1px solid var(--gold);
-  border-radius:10px;
-  background:var(--gold);
-  color:#1b1208;
-  font-size:14px;
-  font-weight:900;
+.cart-button{
+  flex-shrink:0;display:inline-flex;align-items:center;
+  justify-content:center;gap:9px;padding:10px 16px;
+  border:1px solid #e9ad24;border-radius:10px;
+  background:#e9ad24;color:#1b1208;font-size:14px;font-weight:900
 }
-
-.cart-count {
-  min-width:23px;
-  height:23px;
-  padding:0 5px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  background:var(--brown);
-  color:white;
-  font-size:12px;
+.cart-count{
+  min-width:23px;height:23px;padding:0 5px;
+  display:inline-flex;align-items:center;justify-content:center;
+  border-radius:50%;background:var(--brown);color:white;font-size:12px
 }
 
 /* INTRO */
-
-.main {
-  width:min(1100px,92%);
-  margin:auto;
-  padding:55px 0 35px;
-  text-align:center;
+.main{
+  width:min(1100px,92%);margin:auto;
+  padding:55px 0 35px;text-align:center
 }
-
-.main-logo {
-  width:115px;
-  height:115px;
-  object-fit:contain;
-  margin-bottom:15px;
+.main-logo{width:115px;height:115px;object-fit:contain;margin-bottom:15px}
+.gold-line{
+  width:180px;height:3px;margin:18px auto;border-radius:5px;
+  background:linear-gradient(90deg,transparent,var(--orange),var(--brown),var(--orange),transparent)
 }
-
-.gold-line {
-  width:180px;
-  height:3px;
-  margin:18px auto;
-  border-radius:5px;
-  background:linear-gradient(
-    90deg,transparent,var(--orange),
-    var(--brown),var(--orange),transparent
-  );
-}
-
-h1 {
-  color:var(--brown);
-  font-size:clamp(27px,4vw,40px);
-  font-weight:900;
-  margin-bottom:12px;
-}
-
-.intro {
-  max-width:650px;
-  margin:auto;
-  color:var(--muted);
-  font-size:15px;
-  line-height:2.2;
-}
+h1{color:var(--brown);font-size:clamp(27px,4vw,40px);font-weight:900;margin-bottom:12px}
+.intro{max-width:650px;margin:auto;color:var(--muted);font-size:15px;line-height:2.2}
 
 /* PRODUCTS */
-
-.products-section {
-  width:min(1100px,92%);
-  margin:0 auto 65px;
-  text-align:center;
-  scroll-margin-top:20px;
+.products-section{
+  width:min(1100px,92%);margin:0 auto 65px;
+  text-align:center;scroll-margin-top:20px
 }
-
-.section-title {
-  color:var(--brown);
-  font-size:27px;
-  font-weight:900;
-  margin-bottom:10px;
+.section-title{color:var(--brown);font-size:27px;font-weight:900;margin-bottom:10px}
+.section-description{color:var(--muted);font-size:14px;line-height:2;margin-bottom:25px}
+.product-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px
 }
-
-.section-description {
-  color:var(--muted);
-  font-size:14px;
-  line-height:2;
-  margin-bottom:25px;
+.product-card{
+  overflow:hidden;border:1px solid var(--border);border-radius:16px;
+  background:#fffaf2;box-shadow:0 8px 25px rgba(107,53,37,.08);
+  text-align:start
 }
-
-.product-grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:20px;
+.product-image{
+  width:100%;aspect-ratio:4/3;display:block;
+  object-fit:contain;background:#fffaf2
 }
-
-.product-card {
-  overflow:hidden;
-  border:1px solid var(--border);
-  border-radius:16px;
-  background:#fffaf2;
-  box-shadow:0 8px 25px rgba(107,53,37,.08);
-  text-align:start;
+.product-info{padding:15px}
+.product-name{color:var(--brown);font-size:18px;font-weight:900;margin-bottom:7px}
+.product-description{color:var(--muted);font-size:13px;line-height:1.9;margin-bottom:14px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.product-price{color:var(--orange);font-size:16px;font-weight:900}
+.add-button{
+  padding:9px 13px;border:0;border-radius:8px;
+  background:var(--brown);color:white;font-size:13px;font-weight:800;transition:.2s
 }
-
-.product-image {
-  width:100%;
-  aspect-ratio:4/3;
-  display:block;
-  object-fit:contain;
-  background:#fffaf2;
+.add-button:hover{background:var(--orange)}
+.status-message{
+  padding:30px 18px;border:1px dashed rgba(107,53,37,.35);
+  border-radius:15px;background:#fffaf2;color:var(--muted);line-height:2
 }
-
-.product-info { padding:15px; }
-
-.product-name {
-  color:var(--brown);
-  font-size:18px;
-  font-weight:900;
-  margin-bottom:7px;
-}
-
-.product-description {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.9;
-  margin-bottom:14px;
-}
-
-.product-bottom {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.product-price {
-  color:var(--orange);
-  font-size:16px;
-  font-weight:900;
-}
-
-.add-button {
-  padding:9px 13px;
-  border:0;
-  border-radius:8px;
-  background:var(--brown);
-  color:white;
-  font-size:13px;
-  font-weight:800;
-  transition:.2s;
-}
-
-.add-button:hover { background:var(--orange); }
-
-.empty-category {
-  padding:35px 18px;
-  border:1px dashed rgba(107,53,37,.35);
-  border-radius:15px;
-  background:#fffaf2;
-  color:var(--muted);
-  line-height:2;
+.retry-button{
+  margin-top:14px;padding:10px 18px;border:0;border-radius:8px;
+  background:var(--brown);color:white;font-weight:700
 }
 
 /* CART */
-
-.overlay {
-  position:fixed;
-  inset:0;
-  z-index:9000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(5px);
+.overlay{
+  position:fixed;inset:0;z-index:9000;display:flex;
+  align-items:center;justify-content:center;padding:18px;
+  background:rgba(0,0,0,.72);backdrop-filter:blur(5px)
 }
-
-.overlay.hidden { display:none; }
-
-.modal {
-  width:min(540px,100%);
-  max-height:85vh;
-  overflow-y:auto;
-  padding:23px;
-  background:var(--cream);
-  border:2px solid var(--orange);
-  border-radius:19px;
-  box-shadow:0 15px 55px rgba(0,0,0,.3);
+.overlay.hidden{display:none}
+.modal{
+  width:min(540px,100%);max-height:85vh;overflow-y:auto;
+  padding:23px;background:var(--cream);
+  border:2px solid var(--orange);border-radius:19px
 }
-
-.modal-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding-bottom:15px;
-  border-bottom:1px solid var(--border);
-  margin-bottom:18px;
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding-bottom:15px;border-bottom:1px solid var(--border);margin-bottom:18px
 }
-
-.modal-header h2 {
-  color:var(--brown);
-  font-size:22px;
+.modal-header h2{color:var(--brown);font-size:22px}
+.close-button{
+  width:35px;height:35px;border:0;border-radius:50%;
+  background:var(--brown);color:white;font-size:22px
 }
-
-.close-button {
-  width:35px;
-  height:35px;
-  border:0;
-  border-radius:50%;
-  background:var(--brown);
-  color:white;
-  font-size:22px;
+.cart-empty{text-align:center;padding:30px 10px;color:var(--muted);line-height:2}
+.cart-item{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:13px 0;border-bottom:1px solid var(--border)
 }
-
-.cart-empty {
-  text-align:center;
-  padding:30px 10px;
-  color:var(--muted);
-  line-height:2;
+.cart-item-info{flex:1;min-width:0;text-align:start}
+.cart-item-name{color:var(--brown);font-weight:900;margin-bottom:4px}
+.cart-item-price{color:var(--muted);font-size:13px}
+.cart-controls{display:flex;align-items:center;gap:7px}
+.quantity-button{
+  width:29px;height:29px;border:0;border-radius:7px;
+  background:var(--brown);color:white;font-size:18px
 }
-
-.cart-item {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:13px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.cart-item-info {
-  flex:1;
-  min-width:0;
-  text-align:start;
-}
-
-.cart-item-name {
-  color:var(--brown);
-  font-weight:900;
-  margin-bottom:4px;
-}
-
-.cart-item-price {
-  color:var(--muted);
-  font-size:13px;
-}
-
-.cart-controls {
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.quantity-button {
-  width:29px;
-  height:29px;
-  border:0;
-  border-radius:7px;
-  background:var(--brown);
-  color:white;
-  font-size:18px;
-}
-
-.quantity-number {
-  min-width:20px;
-  text-align:center;
-  font-weight:900;
-}
-
-.remove-button {
-  border:0;
-  background:transparent;
-  color:#b13a2b;
-  font-size:20px;
-  padding:4px;
-}
-
-.cart-total {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-top:20px;
-  padding:15px;
-  border-radius:10px;
-  background:#f3dfc9;
-  color:var(--brown);
-  font-weight:900;
+.quantity-number{min-width:20px;text-align:center;font-weight:900}
+.remove-button{border:0;background:transparent;color:#b13a2b;font-size:20px;padding:4px}
+.cart-total{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-top:20px;padding:15px;border-radius:10px;
+  background:#f3dfc9;color:var(--brown);font-weight:900
 }
 
 /* LANGUAGE POPUP */
-
-.language-overlay {
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,0,0,.78);
-  backdrop-filter:blur(7px);
+.language-overlay{
+  position:fixed;inset:0;z-index:9999;display:flex;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(0,0,0,.78);backdrop-filter:blur(7px)
 }
-
-.language-overlay.hidden { display:none; }
-
-.language-modal {
-  width:min(420px,100%);
-  padding:35px 25px;
-  border-radius:22px;
-  background:var(--cream);
-  border:2px solid var(--orange);
-  text-align:center;
-  box-shadow:0 15px 60px rgba(0,0,0,.4);
+.language-overlay.hidden{display:none}
+.language-modal{
+  width:min(420px,100%);padding:35px 25px;border-radius:22px;
+  background:var(--cream);border:2px solid var(--orange);
+  text-align:center;box-shadow:0 15px 60px rgba(0,0,0,.4)
 }
-
-.modal-logo {
-  width:75px;
-  height:75px;
-  object-fit:contain;
-  margin-bottom:15px;
+.modal-logo{width:75px;height:75px;object-fit:contain;margin-bottom:15px}
+.language-modal h2{color:var(--brown);font-size:25px;font-weight:900;margin-bottom:8px}
+.language-modal p{color:var(--muted);font-size:14px;margin-bottom:25px;line-height:1.8}
+.modal-language-buttons{display:flex;flex-direction:column;gap:12px}
+.modal-language-button{
+  width:100%;padding:14px;border:1px solid var(--border);
+  border-radius:12px;background:white;color:var(--brown);
+  font-size:16px;font-weight:800
 }
-
-.language-modal h2 {
-  color:var(--brown);
-  font-size:25px;
-  font-weight:900;
-  margin-bottom:8px;
-}
-
-.language-modal p {
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:25px;
-  line-height:1.8;
-}
-
-.modal-language-buttons {
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.modal-language-button {
-  width:100%;
-  padding:14px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:white;
-  color:var(--brown);
-  font-size:16px;
-  font-weight:800;
-}
-
-.modal-language-button:hover {
-  background:var(--orange);
-  border-color:var(--orange);
-  color:white;
-}
+.modal-language-button:hover{background:var(--orange);border-color:var(--orange);color:white}
 
 /* LANGUAGE FOOTER */
-
-.language-area {
-  padding:25px 15px 30px;
-  text-align:center;
-  border-top:1px solid var(--border);
-  background:#fffaf2;
+.language-area{
+  padding:25px 15px 30px;text-align:center;
+  border-top:1px solid var(--border);background:#fffaf2
 }
-
-.language-title {
-  color:var(--brown);
-  font-size:13px;
-  margin-bottom:15px;
+.language-title{color:var(--brown);font-size:13px;margin-bottom:15px}
+.language-buttons{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px}
+.language-button{
+  min-width:105px;padding:10px 17px;background:white;color:var(--brown);
+  border:1px solid rgba(107,53,37,.3);border-radius:9px;
+  font-size:14px;font-weight:700
 }
-
-.language-buttons {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
+.language-button:hover,.language-button.active{
+  background:var(--orange);border-color:var(--orange);color:white
 }
+.footer{text-align:center;padding:15px;color:#795b4d;font-size:12px;background:#f5e6d3}
+.footer strong{color:var(--orange)}
 
-.language-button {
-  min-width:105px;
-  padding:10px 17px;
-  background:white;
-  color:var(--brown);
-  border:1px solid rgba(107,53,37,.3);
-  border-radius:9px;
-  font-size:14px;
-  font-weight:700;
+@media(max-width:800px){
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 }
-
-.language-button:hover,
-.language-button.active {
-  background:var(--orange);
-  border-color:var(--orange);
-  color:white;
+@media(max-width:700px){
+  .menu-inner{align-items:stretch;flex-direction:column}
+  .category-nav{width:100%;padding-bottom:4px}
+  .cart-button{width:100%}
 }
-
-.footer {
-  text-align:center;
-  padding:15px;
-  color:#795b4d;
-  font-size:12px;
-  background:#f5e6d3;
-}
-
-.footer strong { color:var(--orange); }
-
-@media(max-width:800px) {
-  .product-grid {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:14px;
-  }
-}
-
-@media(max-width:700px) {
-  .menu-inner {
-    align-items:stretch;
-    flex-direction:column;
-  }
-
-  .category-nav {
-    width:100%;
-    padding-bottom:4px;
-  }
-
-  .cart-button { width:100%; }
-}
-
-@media(max-width:600px) {
-  .header { height:72px; }
-  .brand img { width:120px; }
-  .back-button { padding:8px 11px; font-size:12px; }
-  .main { padding:45px 0 30px; }
-  .main-logo { width:105px; height:105px; }
-  .intro { font-size:14px; }
-  .section-title { font-size:23px; }
-  .product-grid { gap:10px; }
-  .product-info { padding:11px; }
-  .product-name { font-size:15px; }
-  .product-description { font-size:12px; }
-  .product-bottom {
-    align-items:flex-start;
-    flex-direction:column;
-  }
-  .add-button { width:100%; }
-  .modal { padding:18px; }
+@media(max-width:600px){
+  .header{height:72px}
+  .brand img{width:120px}
+  .back-button{padding:8px 11px;font-size:12px}
+  .main{padding:45px 0 30px}
+  .main-logo{width:105px;height:105px}
+  .intro{font-size:14px}
+  .section-title{font-size:23px}
+  .product-grid{gap:10px}
+  .product-info{padding:11px}
+  .product-name{font-size:15px}
+  .product-description{font-size:12px}
+  .product-bottom{align-items:flex-start;flex-direction:column}
+  .add-button{width:100%}
+  .modal{padding:18px}
 }
 </style>
 </head>
@@ -608,16 +258,11 @@ h1 {
 <body>
 
 <!-- LANGUAGE POPUP -->
-
 <div class="language-overlay" id="languageOverlay">
   <div class="language-modal">
-    <img class="modal-logo"
-      src="file_0000000090a081f4805def2e8128fe81.png"
-      alt="Rawsh">
-
+    <img class="modal-logo" src="file_0000000090a081f4805def2e8128fe81.png" alt="Rawsh">
     <h2 data-i18n="welcome">بەخێربێیت</h2>
     <p data-i18n="chooseLanguage">تکایە زمانی دڵخوازت هەڵبژێرە</p>
-
     <div class="modal-language-buttons">
       <button class="modal-language-button" data-lang="ku">کوردی</button>
       <button class="modal-language-button" data-lang="ar">العربية</button>
@@ -627,16 +272,13 @@ h1 {
 </div>
 
 <!-- CART POPUP -->
-
 <div class="overlay hidden" id="cartOverlay">
   <div class="modal">
     <div class="modal-header">
       <h2 data-i18n="cartTitle">سەبەتەی خواردن</h2>
       <button class="close-button" id="closeCart" type="button">×</button>
     </div>
-
     <div id="cartItems"></div>
-
     <div class="cart-total">
       <span data-i18n="total">کۆی گشتی</span>
       <span id="cartTotal">0 دینار</span>
@@ -644,22 +286,16 @@ h1 {
   </div>
 </div>
 
-<!-- HEADER -->
-
 <header class="header">
   <div class="header-inner">
     <a class="back-button" href="index.html">
-      <span>←</span>
-      <span data-i18n="back">گەڕانەوە</span>
+      <span>←</span><span data-i18n="back">گەڕانەوە</span>
     </a>
-
     <a class="brand" href="index.html">
       <img src="file_000000008c388246a1a14bb325b59eb6(1).png" alt="Rawsh">
     </a>
   </div>
 </header>
-
-<!-- CATEGORY BAR -->
 
 <nav class="menu-bar">
   <div class="menu-inner">
@@ -669,7 +305,6 @@ h1 {
       <button class="category-button" data-category="appetizers" data-i18n="appetizers">موقەبیلات</button>
       <button class="category-button" data-category="drinks" data-i18n="drinks">خواردنەوە</button>
     </div>
-
     <button class="cart-button" id="openCart" type="button">
       <span data-i18n="cart">سەبەتە</span>
       <span class="cart-count" id="cartCount">0</span>
@@ -677,46 +312,24 @@ h1 {
   </div>
 </nav>
 
-<!-- INTRO -->
-
 <main class="main">
-  <img class="main-logo"
-    src="file_0000000090a081f4805def2e8128fe81.png"
-    alt="Rawsh Logo">
-
+  <img class="main-logo" src="file_0000000090a081f4805def2e8128fe81.png" alt="Rawsh Logo">
   <div class="gold-line"></div>
-
   <h1 data-i18n="title">خواردن و شیرینی</h1>
-
   <p class="intro" data-i18n="intro">
-    بەخێربێیت بۆ بەشی خواردن و شیرینی.
-    لێرە دەتوانیت خواردن و خواردنەوەکان ببینیت
-    و زیاد بکەیتە ناو سەبەتەکەت.
+    بەخێربێیت بۆ بەشی خواردن و شیرینی. لێرە دەتوانیت خواردن و خواردنەوەکان ببینیت و زیاد بکەیتە ناو سەبەتەکەت.
   </p>
 </main>
 
-<!-- PRODUCTS -->
-
 <section class="products-section" id="productsSection">
   <h2 class="section-title" id="categoryTitle">بەرگر</h2>
-
-  <p class="section-description" data-i18n="categoryIntro">
-    بەرهەمەکانی ئەم بەشە لێرە پیشان دەدرێن.
-  </p>
-
+  <p class="section-description" data-i18n="categoryIntro">بەرهەمەکانی ئەم بەشە لێرە پیشان دەدرێن.</p>
   <div class="product-grid" id="productGrid"></div>
-
-  <div class="empty-category" id="emptyCategory"
-    data-i18n="emptyCategory" style="display:none">
-    هیچ بەرهەمێک لەم بەشەدا نییە.
-  </div>
+  <div class="status-message" id="statusMessage" style="display:none"></div>
 </section>
-
-<!-- LANGUAGE SELECTOR -->
 
 <section class="language-area">
   <p class="language-title" data-i18n="language">زمانی پەڕەکە هەڵبژێرە</p>
-
   <div class="language-buttons">
     <button class="language-button active" data-lang="ku">کوردی</button>
     <button class="language-button" data-lang="en">English</button>
@@ -725,259 +338,143 @@ h1 {
 </section>
 
 <footer class="footer">
-  <strong>Rawsh</strong> —
-  <span data-i18n="rights">هەموو مافەکان پارێزراون.</span>
+  <strong>Rawsh</strong> — <span data-i18n="rights">هەموو مافەکان پارێزراون.</span>
 </footer>
 
 <script>
+/* SUPABASE CONNECTION */
+const SUPABASE_URL = "https://lpjjiulbtnmdduzehemo.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_wRIJG2sZhNLe5sN8CQayCQ_7K2_AqWF";
 
-/* PRODUCT DATABASE */
-
-const products = [
-  {
-    id:1,
-    category:"burger",
-    price:5000,
-    image:"16ae858fbc7387ba67e17166a6b2e8ee.jpg",
-    names:{
-      ku:"دبل چیز بەرگر",
-      en:"Double Cheese Burger",
-      ar:"دبل تشيز برغر"
-    },
-    descriptions:{
-      ku:"دوو پارچە گۆشتی بەرگر، پەنیری چێدار، کاهوو، تەماتە، پیاز، خیارشۆر و سۆسی بەرگر، لەگەڵ نانی بەرگری کەنەوادار.",
-      en:"Two beef patties, cheddar cheese, lettuce, tomato, onion, pickles and burger sauce in a sesame bun.",
-      ar:"قطعتان من لحم البرغر، جبنة شيدر، خس، طماطم، بصل، مخلل وصوص البرغر داخل خبز بالسمسم."
-    }
-  },
-
-  {
-    id:2,
-    category:"burger",
-    price:8500,
-    image:"file_00000000ddec81f4ae6e0c934c615ec9.png",
-    names:{
-      ku:"دبل کرێسپی چیکن بەرگر",
-      en:"Double Crispy Chicken Burger",
-      ar:"دبل كرسبي تشيكن برغر"
-    },
-    descriptions:{
-      ku:"دوو پارچە مریشکی کرێسپی، پەنیری چێدار، کاهوو، تەماتە و نانی بەرگری کەنەوادار.",
-      en:"Two crispy chicken fillets, cheddar cheese, lettuce, tomato and a sesame burger bun.",
-      ar:"قطعتان من الدجاج المقرمش، جبنة شيدر، خس، طماطم وخبز برغر بالسمسم."
-    }
-  },
-
-  {
-    id:3,
-    category:"pizza",
-    price:10000,
-    image:"0d6a5368d68572456e17f166a6eee7c7.jpg",
-    names:{
-      ku:"پیتزای سۆپریم",
-      en:"Supreme Pizza",
-      ar:"بيتزا سوبريم"
-    },
-    descriptions:{
-      ku:"پەنیری مۆزاریلا، سۆسی تەماتە، پەپەرۆنی، گۆشتی هاڕاو، قارچک، زەیتوونی ڕەش و فلفڵی سەوز و سوور.",
-      en:"Mozzarella cheese, tomato sauce, pepperoni, minced meat, mushrooms, black olives, and green and red bell peppers.",
-      ar:"جبنة موزاريلا، صلصة الطماطم، بيبروني، لحم مفروم، فطر، زيتون أسود، وفلفل أخضر وأحمر."
-    }
-  },
-
-  {
-    id:4,
-    category:"pizza",
-    price:12000,
-    image:"c519d4838c10d0c8ebfa7721f41705e3(1).png",
-    names:{
-      ku:"پیتزای پەپەرۆنی",
-      en:"Pepperoni Pizza",
-      ar:"بيتزا بيبروني"
-    },
-    descriptions:{
-      ku:"خەمیرەی پیتزا، سۆسی تەماتە، پەنیری مۆزاریلا، پارچەکانی پەپەرۆنی و ڕەیحانی تازە.",
-      en:"Pizza dough, tomato sauce, mozzarella cheese, pepperoni slices and fresh basil.",
-      ar:"عجينة البيتزا، صلصة الطماطم، جبنة موزاريلا، شرائح البيبروني والريحان الطازج."
-    }
-  },
-
-  {
-    id:5,
-    category:"appetizers",
-    price:5000,
-    image:"26a87b3e72d9fb57d81fa18c390b3e56.png",
-    names:{
-      ku:"سینی موقەبیلاتی تێکەڵ",
-      en:"Mixed Mezze Platter",
-      ar:"طبق مقبلات مشكلة"
-    },
-    descriptions:{
-      ku:"حومس، تەبوولە، سالاتی ماست و هەنار، سالاتی مۆزە و سەوزە، سپاگێتی و سالاتی سەوزەی تێکەڵ.",
-      en:"Hummus, tabbouleh, yogurt and pomegranate salad, vegetable salad, spaghetti and mixed vegetable salad.",
-      ar:"حمص، تبولة، سلطة اللبن والرمان، سلطة الخضار، سباغيتي وسلطة خضار مشكلة."
-    }
-  },
-
-  {
-    id:6,
-    category:"drinks",
-    price:1000,
-    image:"0c7f715767d70087c1659adad03c2e1e.png",
-    names:{
-      ku:"فانتا پرتەقاڵ",
-      en:"Fanta Orange",
-      ar:"فانتا برتقال"
-    },
-    descriptions:{
-      ku:"خواردنەوەی گازی بە تامی پرتەقاڵ، بە تامی خۆش و ساردکەرەوە.",
-      en:"A refreshing carbonated orange-flavoured drink.",
-      ar:"مشروب غازي منعش بنكهة البرتقال."
-    }
-  },
-
-  {
-    id:7,
-    category:"drinks",
-    price:1000,
-    image:"ac597744c08b0bd59ab8fb1331413d3a.png",
-    names:{
-      ku:"کۆکاکۆلا",
-      en:"Coca-Cola",
-      ar:"كوكاكولا"
-    },
-    descriptions:{
-      ku:"خواردنەوەی گازی کۆکاکۆلا.",
-      en:"Coca-Cola carbonated soft drink.",
-      ar:"مشروب كوكاكولا الغازي."
-    }
-  }
-];
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
 /* TRANSLATIONS */
-
 const translations = {
   ku:{
-    back:"گەڕانەوە",
-    welcome:"بەخێربێیت",
+    back:"گەڕانەوە",welcome:"بەخێربێیت",
     chooseLanguage:"تکایە زمانی دڵخوازت هەڵبژێرە",
     title:"خواردن و شیرینی",
     intro:"بەخێربێیت بۆ بەشی خواردن و شیرینی. لێرە دەتوانیت خواردن و خواردنەوەکان ببینیت و زیاد بکەیتە ناو سەبەتەکەت.",
-    pizza:"پیتزا",
-    burger:"بەرگر",
-    appetizers:"موقەبیلات",
-    drinks:"خواردنەوە",
-    cart:"سەبەتە",
-    cartTitle:"سەبەتەی خواردن",
-    emptyCart:"سەبەتەکەت بەتاڵە.",
-    total:"کۆی گشتی",
-    language:"زمانی پەڕەکە هەڵبژێرە",
-    rights:"هەموو مافەکان پارێزراون.",
+    pizza:"پیتزا",burger:"بەرگر",appetizers:"موقەبیلات",drinks:"خواردنەوە",
+    cart:"سەبەتە",cartTitle:"سەبەتەی خواردن",
+    emptyCart:"سەبەتەکەت بەتاڵە.",total:"کۆی گشتی",
+    language:"زمانی پەڕەکە هەڵبژێرە",rights:"هەموو مافەکان پارێزراون.",
     categoryIntro:"بەرهەمەکانی ئەم بەشە لێرە پیشان دەدرێن.",
-    emptyCategory:"هیچ بەرهەمێک لەم بەشەدا نییە. بەرهەمەکان دواتر زیاد دەکرێن.",
-    add:"زیادکردن بۆ سەبەتە",
-    currency:"دینار",
-    categoryNames:{
-      pizza:"پیتزا",
-      burger:"بەرگر",
-      appetizers:"موقەبیلات",
-      drinks:"خواردنەوە"
-    }
+    emptyCategory:"هیچ بەرهەمێک لەم بەشەدا نییە.",
+    loading:"تکایە چاوەڕێ بکە، بەرهەمەکان بار دەکرێن...",
+    loadError:"نەتوانرا بەرهەمەکان بار بکرێن. تکایە پەڕەکە نوێ بکەرەوە.",
+    retry:"دووبارە هەوڵبدەرەوە",
+    add:"زیادکردن بۆ سەبەتە",currency:"دینار",
+    categoryNames:{pizza:"پیتزا",burger:"بەرگر",appetizers:"موقەبیلات",drinks:"خواردنەوە"}
   },
-
   en:{
-    back:"Go Back",
-    welcome:"Welcome",
+    back:"Go Back",welcome:"Welcome",
     chooseLanguage:"Please choose your preferred language",
     title:"Food & Sweets",
     intro:"Welcome to the Food & Sweets section. Browse our food and drinks and add your choices to your cart.",
-    pizza:"Pizza",
-    burger:"Burgers",
-    appetizers:"Appetizers",
-    drinks:"Drinks",
-    cart:"Cart",
-    cartTitle:"Your Cart",
-    emptyCart:"Your cart is empty.",
-    total:"Total",
-    language:"Choose your language",
-    rights:"All rights reserved.",
+    pizza:"Pizza",burger:"Burgers",appetizers:"Appetizers",drinks:"Drinks",
+    cart:"Cart",cartTitle:"Your Cart",emptyCart:"Your cart is empty.",
+    total:"Total",language:"Choose your language",rights:"All rights reserved.",
     categoryIntro:"Products in this category appear here.",
     emptyCategory:"There are no products in this category yet.",
-    add:"Add to Cart",
-    currency:"IQD",
-    categoryNames:{
-      pizza:"Pizza",
-      burger:"Burgers",
-      appetizers:"Appetizers",
-      drinks:"Drinks"
-    }
+    loading:"Please wait, products are loading...",
+    loadError:"Products could not be loaded. Please refresh the page.",
+    retry:"Try Again",add:"Add to Cart",currency:"IQD",
+    categoryNames:{pizza:"Pizza",burger:"Burgers",appetizers:"Appetizers",drinks:"Drinks"}
   },
-
   ar:{
-    back:"العودة",
-    welcome:"أهلاً وسهلاً",
+    back:"العودة",welcome:"أهلاً وسهلاً",
     chooseLanguage:"يرجى اختيار لغتك المفضلة",
     title:"الأطعمة والحلويات",
     intro:"مرحباً بك في قسم الأطعمة والحلويات. تصفح الأطعمة والمشروبات وأضف اختياراتك إلى السلة.",
-    pizza:"بيتزا",
-    burger:"برغر",
-    appetizers:"مقبلات",
-    drinks:"مشروبات",
-    cart:"السلة",
-    cartTitle:"سلة الطعام",
-    emptyCart:"سلتك فارغة.",
-    total:"المجموع الكلي",
-    language:"اختر لغة الصفحة",
+    pizza:"بيتزا",burger:"برغر",appetizers:"مقبلات",drinks:"مشروبات",
+    cart:"السلة",cartTitle:"سلة الطعام",emptyCart:"سلتك فارغة.",
+    total:"المجموع الكلي",language:"اختر لغة الصفحة",
     rights:"جميع الحقوق محفوظة.",
     categoryIntro:"ستظهر منتجات هذا القسم هنا.",
     emptyCategory:"لا توجد منتجات في هذا القسم حالياً.",
-    add:"أضف إلى السلة",
-    currency:"دينار",
-    categoryNames:{
-      pizza:"بيتزا",
-      burger:"برغر",
-      appetizers:"مقبلات",
-      drinks:"مشروبات"
-    }
+    loading:"يرجى الانتظار، جار تحميل المنتجات...",
+    loadError:"تعذر تحميل المنتجات. يرجى تحديث الصفحة.",
+    retry:"إعادة المحاولة",add:"أضف إلى السلة",currency:"دينار",
+    categoryNames:{pizza:"بيتزا",burger:"برغر",appetizers:"مقبلات",drinks:"مشروبات"}
   }
 };
 
 /* PAGE STATE */
+let currentLanguage = "ku";
+let currentCategory = "burger";
+let products = [];
+let cart = [];
 
-let currentLanguage="ku";
-let currentCategory="burger";
-let cart=[];
+const languageOverlay = document.getElementById("languageOverlay");
+const cartOverlay = document.getElementById("cartOverlay");
+const cartItems = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const cartTotal = document.getElementById("cartTotal");
+const productGrid = document.getElementById("productGrid");
+const statusMessage = document.getElementById("statusMessage");
 
-const languageOverlay=document.getElementById("languageOverlay");
-const cartOverlay=document.getElementById("cartOverlay");
-const cartItems=document.getElementById("cartItems");
-const cartCount=document.getElementById("cartCount");
-const cartTotal=document.getElementById("cartTotal");
-const productGrid=document.getElementById("productGrid");
-const emptyCategory=document.getElementById("emptyCategory");
+/* HELPERS */
+function currentText(key){
+  return translations[currentLanguage][key];
+}
+
+function formatNumber(number){
+  const locale = currentLanguage === "en" ? "en-US" :
+    currentLanguage === "ar" ? "ar-IQ" : "ku";
+  return new Intl.NumberFormat(locale).format(number);
+}
+
+function getProductName(product){
+  const key = currentLanguage === "ku" ? "name_ku" :
+    currentLanguage === "en" ? "name_en" : "name_ar";
+  return product[key] || product.name_ku || product.name_en || product.name_ar || "";
+}
+
+function getProductDescription(product){
+  const key = currentLanguage === "ku" ? "description_ku" :
+    currentLanguage === "en" ? "description_en" : "description_ar";
+  return product[key] || product.description_ku ||
+    product.description_en || product.description_ar || "";
+}
+
+function getImageUrl(imagePath){
+  if(!imagePath) return "";
+
+  if(/^https?:\/\//i.test(imagePath)){
+    return imagePath;
+  }
+
+  const cleanPath = imagePath.replace(/^\/+/, "");
+  const { data } = supabaseClient.storage
+    .from("food-images")
+    .getPublicUrl(cleanPath);
+
+  return data.publicUrl;
+}
 
 /* LANGUAGE */
-
 function changeLanguage(lang){
-  const selected=translations[lang];
+  const selected = translations[lang];
   if(!selected) return;
 
-  currentLanguage=lang;
-
-  document.documentElement.lang=lang;
-  document.documentElement.dir=lang==="en"?"ltr":"rtl";
+  currentLanguage = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
 
   document.querySelectorAll("[data-i18n]").forEach(element=>{
-    const key=element.dataset.i18n;
-    if(selected[key]) element.textContent=selected[key];
+    const key = element.dataset.i18n;
+    if(selected[key]) element.textContent = selected[key];
   });
 
   document.querySelectorAll(".language-button").forEach(button=>{
-    button.classList.toggle("active",button.dataset.lang===lang);
+    button.classList.toggle("active",button.dataset.lang === lang);
   });
 
-  document.title=selected.title+" | Rawsh";
-
+  document.title = selected.title + " | Rawsh";
   renderProducts();
   renderCart();
 
@@ -991,15 +488,46 @@ document.querySelectorAll("[data-lang]").forEach(button=>{
   });
 });
 
-/* CATEGORY NAVIGATION */
+/* LOAD PRODUCTS FROM SUPABASE */
+async function loadProducts(){
+  statusMessage.style.display = "block";
+  statusMessage.textContent = currentText("loading");
+  productGrid.innerHTML = "";
 
+  const { data, error } = await supabaseClient
+    .from("products")
+    .select("*")
+    .eq("is_available", true)
+    .order("created_at", { ascending:false });
+
+  if(error){
+    console.error("Supabase products error:", error);
+    statusMessage.textContent = currentText("loadError");
+
+    const retry = document.createElement("button");
+    retry.className = "retry-button";
+    retry.type = "button";
+    retry.textContent = currentText("retry");
+    retry.addEventListener("click",loadProducts);
+    statusMessage.appendChild(document.createElement("br"));
+    statusMessage.appendChild(retry);
+    return;
+  }
+
+  products = data || [];
+  statusMessage.style.display = "none";
+  renderProducts();
+  renderCart();
+}
+
+/* CATEGORY NAVIGATION */
 function selectCategory(category){
-  currentCategory=category;
+  currentCategory = category;
 
   document.querySelectorAll(".category-button").forEach(button=>{
     button.classList.toggle(
       "active",
-      button.dataset.category===category
+      button.dataset.category === category
     );
   });
 
@@ -1017,69 +545,62 @@ document.querySelectorAll(".category-button").forEach(button=>{
   });
 });
 
-/* NUMBER FORMAT */
-
-function formatNumber(number){
-  return new Intl.NumberFormat(
-    currentLanguage==="en"?"en-US":
-    currentLanguage==="ar"?"ar-IQ":"ku"
-  ).format(number);
-}
-
 /* DISPLAY PRODUCTS */
-
 function renderProducts(){
-  const selected=translations[currentLanguage];
+  const selected = translations[currentLanguage];
 
-  document.getElementById("categoryTitle").textContent=
+  document.getElementById("categoryTitle").textContent =
     selected.categoryNames[currentCategory];
 
-  productGrid.innerHTML="";
+  productGrid.innerHTML = "";
 
-  const categoryProducts=products.filter(
-    product=>product.category===currentCategory
+  const categoryProducts = products.filter(product =>
+    product.category === currentCategory && product.is_available === true
   );
 
-  if(categoryProducts.length===0){
-    emptyCategory.style.display="block";
-    emptyCategory.textContent=selected.emptyCategory;
+  if(categoryProducts.length === 0){
+    statusMessage.style.display = "block";
+    statusMessage.textContent = selected.emptyCategory;
     return;
   }
 
-  emptyCategory.style.display="none";
+  statusMessage.style.display = "none";
 
   categoryProducts.forEach(product=>{
-    const card=document.createElement("article");
-    card.className="product-card";
+    const card = document.createElement("article");
+    card.className = "product-card";
 
-    const image=document.createElement("img");
-    image.className="product-image";
-    image.src=product.image;
-    image.alt=product.names[currentLanguage];
-    image.loading="lazy";
+    const image = document.createElement("img");
+    image.className = "product-image";
+    image.src = getImageUrl(product.image_url);
+    image.alt = getProductName(product);
+    image.loading = "lazy";
+    image.onerror = ()=>{
+      image.style.display = "none";
+    };
 
-    const info=document.createElement("div");
-    info.className="product-info";
+    const info = document.createElement("div");
+    info.className = "product-info";
 
-    const name=document.createElement("h3");
-    name.className="product-name";
-    name.textContent=product.names[currentLanguage];
+    const name = document.createElement("h3");
+    name.className = "product-name";
+    name.textContent = getProductName(product);
 
-    const description=document.createElement("p");
-    description.className="product-description";
-    description.textContent=product.descriptions[currentLanguage];
+    const description = document.createElement("p");
+    description.className = "product-description";
+    description.textContent = getProductDescription(product);
 
-    const bottom=document.createElement("div");
-    bottom.className="product-bottom";
+    const bottom = document.createElement("div");
+    bottom.className = "product-bottom";
 
-    const price=document.createElement("span");
-    price.className="product-price";
-    price.textContent=formatNumber(product.price)+" "+selected.currency;
+    const price = document.createElement("span");
+    price.className = "product-price";
+    price.textContent = formatNumber(product.price) + " " + selected.currency;
 
-    const addButton=document.createElement("button");
-    addButton.className="add-button";
-    addButton.type="button";
-    addButton.textContent=selected.add;
+    const addButton = document.createElement("button");
+    addButton.className = "add-button";
+    addButton.type = "button";
+    addButton.textContent = selected.add;
     addButton.addEventListener("click",()=>addToCart(product.id));
 
     bottom.append(price,addButton);
@@ -1089,14 +610,16 @@ function renderProducts(){
   });
 }
 
-/* CART SYSTEM - PRICE CALCULATION ONLY */
-
+/* CART */
 function addToCart(productId){
-  const existing=cart.find(item=>item.id===productId);
+  const product = products.find(item => item.id === productId);
+  if(!product) return;
+
+  const existing = cart.find(item => item.id === productId);
 
   if(existing){
     existing.quantity++;
-  } else {
+  }else{
     cart.push({id:productId,quantity:1});
   }
 
@@ -1104,84 +627,83 @@ function addToCart(productId){
 }
 
 function changeQuantity(productId,amount){
-  const item=cart.find(product=>product.id===productId);
+  const item = cart.find(product => product.id === productId);
   if(!item) return;
 
-  item.quantity+=amount;
+  item.quantity += amount;
 
-  if(item.quantity<=0){
-    cart=cart.filter(product=>product.id!==productId);
+  if(item.quantity <= 0){
+    cart = cart.filter(product => product.id !== productId);
   }
 
   renderCart();
 }
 
 function removeFromCart(productId){
-  cart=cart.filter(product=>product.id!==productId);
+  cart = cart.filter(product => product.id !== productId);
   renderCart();
 }
 
 function renderCart(){
-  const selected=translations[currentLanguage];
+  const selected = translations[currentLanguage];
+  let totalItems = 0;
+  let totalPrice = 0;
 
-  let totalItems=0;
-  let totalPrice=0;
+  cartItems.innerHTML = "";
 
-  cartItems.innerHTML="";
-
-  if(cart.length===0){
-    const empty=document.createElement("div");
-    empty.className="cart-empty";
-    empty.textContent=selected.emptyCart;
+  if(cart.length === 0){
+    const empty = document.createElement("div");
+    empty.className = "cart-empty";
+    empty.textContent = selected.emptyCart;
     cartItems.appendChild(empty);
   }
 
   cart.forEach(cartItem=>{
-    const product=products.find(item=>item.id===cartItem.id);
+    const product = products.find(item => item.id === cartItem.id);
     if(!product) return;
 
-    totalItems+=cartItem.quantity;
-    totalPrice+=product.price*cartItem.quantity;
+    totalItems += cartItem.quantity;
+    totalPrice += Number(product.price) * cartItem.quantity;
 
-    const row=document.createElement("div");
-    row.className="cart-item";
+    const row = document.createElement("div");
+    row.className = "cart-item";
 
-    const info=document.createElement("div");
-    info.className="cart-item-info";
+    const info = document.createElement("div");
+    info.className = "cart-item-info";
 
-    const name=document.createElement("div");
-    name.className="cart-item-name";
-    name.textContent=product.names[currentLanguage];
+    const name = document.createElement("div");
+    name.className = "cart-item-name";
+    name.textContent = getProductName(product);
 
-    const price=document.createElement("div");
-    price.className="cart-item-price";
-    price.textContent=formatNumber(product.price)+" "+selected.currency;
+    const price = document.createElement("div");
+    price.className = "cart-item-price";
+    price.textContent = formatNumber(product.price) + " " + selected.currency;
 
     info.append(name,price);
 
-    const controls=document.createElement("div");
-    controls.className="cart-controls";
+    const controls = document.createElement("div");
+    controls.className = "cart-controls";
 
-    const minus=document.createElement("button");
-    minus.className="quantity-button";
-    minus.type="button";
-    minus.textContent="−";
+    const minus = document.createElement("button");
+    minus.className = "quantity-button";
+    minus.type = "button";
+    minus.textContent = "−";
     minus.addEventListener("click",()=>changeQuantity(product.id,-1));
 
-    const quantity=document.createElement("span");
-    quantity.className="quantity-number";
-    quantity.textContent=cartItem.quantity;
+    const quantity = document.createElement("span");
+    quantity.className = "quantity-number";
+    quantity.textContent = cartItem.quantity;
 
-    const plus=document.createElement("button");
-    plus.className="quantity-button";
-    plus.type="button";
-    plus.textContent="+";
+    const plus = document.createElement("button");
+    plus.className = "quantity-button";
+    plus.type = "button";
+    plus.textContent = "+";
     plus.addEventListener("click",()=>changeQuantity(product.id,1));
 
-    const remove=document.createElement("button");
-    remove.className="remove-button";
-    remove.type="button";
-    remove.textContent="×";
+    const remove = document.createElement("button");
+    remove.className = "remove-button";
+    remove.type = "button";
+    remove.textContent = "×";
     remove.addEventListener("click",()=>removeFromCart(product.id));
 
     controls.append(minus,quantity,plus,remove);
@@ -1189,12 +711,11 @@ function renderCart(){
     cartItems.appendChild(row);
   });
 
-  cartCount.textContent=totalItems;
-  cartTotal.textContent=formatNumber(totalPrice)+" "+selected.currency;
+  cartCount.textContent = totalItems;
+  cartTotal.textContent = formatNumber(totalPrice) + " " + selected.currency;
 }
 
 /* OPEN / CLOSE CART */
-
 document.getElementById("openCart").addEventListener("click",()=>{
   renderCart();
   cartOverlay.classList.remove("hidden");
@@ -1209,11 +730,11 @@ function closeCart(){
 document.getElementById("closeCart").addEventListener("click",closeCart);
 
 cartOverlay.addEventListener("click",event=>{
-  if(event.target===cartOverlay) closeCart();
+  if(event.target === cartOverlay) closeCart();
 });
 
 document.addEventListener("keydown",event=>{
-  if(event.key==="Escape"){
+  if(event.key === "Escape"){
     closeCart();
     languageOverlay.classList.add("hidden");
     document.body.classList.remove("lock-scroll");
@@ -1221,13 +742,13 @@ document.addEventListener("keydown",event=>{
 });
 
 /* INITIAL SETUP */
-
 renderProducts();
 renderCart();
+loadProducts();
 
 languageOverlay.classList.remove("hidden");
 document.body.classList.add("lock-scroll");
-
 </script>
+
 </body>
 </html>
